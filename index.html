@@ -1,0 +1,1309 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AnimalVerse — 10 000 Animaux · Encyclopédie Vivante</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a0f0d;--bg2:#0f1a14;--card:#121e17;--border:#1e3528;--green:#3dff8f;--amber:#ffb830;--ocean:#00c8ff;--insect:#c97dff;--text:#e8f5ee;--muted:#6a8f7a;--white:#fff;--r:14px}
+*{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min-height:100vh;overflow-x:hidden}
+/* HEADER */
+header{padding:0 4vw;display:flex;align-items:center;justify-content:space-between;height:66px;border-bottom:1px solid var(--border);background:rgba(10,15,13,.97);backdrop-filter:blur(20px);position:sticky;top:0;z-index:100;gap:1rem}
+.logo{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:900;background:linear-gradient(135deg,var(--green),var(--amber));-webkit-background-clip:text;-webkit-text-fill-color:transparent;cursor:pointer;white-space:nowrap}
+.logo span{font-style:italic}
+nav{display:flex;gap:1rem;align-items:center;flex-wrap:wrap}
+nav button{color:var(--muted);background:none;border:none;font-size:.78rem;font-weight:500;letter-spacing:.5px;text-transform:uppercase;cursor:pointer;font-family:'DM Sans',sans-serif;transition:color .2s;white-space:nowrap}
+nav button:hover{color:var(--green)}
+.tree-btn{background:linear-gradient(135deg,#1a3d2e,#0d2419);border:1px solid var(--green);color:var(--green)!important;padding:7px 14px;border-radius:50px;font-size:.75rem!important;font-weight:700!important;transition:all .2s!important;display:flex;align-items:center;gap:6px}
+.tree-btn:hover{background:var(--green)!important;color:#000!important;box-shadow:0 0 20px rgba(61,255,143,.3)}
+.badge{background:linear-gradient(135deg,#1a9e55,var(--green));color:#000;font-size:.68rem;font-weight:700;padding:5px 12px;border-radius:20px;cursor:pointer;border:none;font-family:'DM Sans',sans-serif;animation:pb 2s ease-in-out infinite;white-space:nowrap}
+@keyframes pb{0%,100%{box-shadow:0 0 0 0 rgba(61,255,143,.4)}50%{box-shadow:0 0 0 8px rgba(61,255,143,0)}}
+
+/* HERO */
+.hero{position:relative;padding:70px 5vw 50px;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(61,255,143,.08),transparent 70%);pointer-events:none}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(2.8rem,7vw,6.5rem);font-weight:900;line-height:.95;letter-spacing:-3px;margin-bottom:1.2rem}
+.hero h1 em{font-style:italic;color:var(--green)}
+.hero>p{font-size:1rem;color:var(--muted);max-width:440px;line-height:1.7;margin-bottom:2rem}
+.hstats{display:flex;gap:2.5rem;margin-bottom:2.5rem;flex-wrap:wrap}
+.sn{font-family:'Space Mono',monospace;font-size:2rem;font-weight:700;color:var(--white);line-height:1}
+.sl{font-size:.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-top:3px}
+.aotd{background:linear-gradient(135deg,var(--card),#1a2e22);border:1px solid var(--border);border-radius:var(--r);padding:16px 20px;display:flex;align-items:center;gap:14px;max-width:540px;cursor:pointer;transition:border-color .3s,transform .3s;margin-bottom:2.5rem}
+.aotd:hover{border-color:var(--green);transform:translateY(-2px)}
+.aotd img{width:68px;height:68px;border-radius:10px;object-fit:cover;flex-shrink:0;border:2px solid var(--border);background:var(--bg2)}
+.aotd small{font-size:.66rem;text-transform:uppercase;letter-spacing:2px;color:var(--green);font-weight:700}
+.aotd h3{font-family:'Playfair Display',serif;font-size:1.2rem;color:var(--white);margin:3px 0}
+.aotd p{font-size:.8rem;color:var(--muted);line-height:1.5;margin:0}
+
+/* ENC SECTION */
+.sec{padding:0 5vw 50px}
+.filter-bar{display:flex;align-items:center;gap:.8rem;margin-bottom:1.5rem;flex-wrap:wrap}
+.tabs{display:flex;gap:5px;background:var(--card);border:1px solid var(--border);border-radius:50px;padding:5px}
+.tab{padding:7px 16px;border-radius:50px;cursor:pointer;font-size:.8rem;font-weight:500;border:none;background:transparent;color:var(--muted);transition:all .25s;font-family:'DM Sans',sans-serif}
+.tab.active[data-cat=all]{background:var(--green);color:#000}
+.tab.active[data-cat=terrestre]{background:var(--amber);color:#000}
+.tab.active[data-cat=marin]{background:var(--ocean);color:#000}
+.tab.active[data-cat=insecte]{background:var(--insect);color:#000}
+.tab:not(.active):hover{color:var(--text)}
+select.ss,input.si{background:var(--card);border:1px solid var(--border);color:var(--text);padding:8px 14px;border-radius:50px;font-size:.8rem;font-family:'DM Sans',sans-serif;cursor:pointer;outline:none;transition:border-color .2s}
+select.ss:hover,input.si:focus{border-color:var(--green)}
+input.si{width:190px}
+input.si::placeholder{color:var(--muted)}
+.pg-info{font-size:.78rem;color:var(--muted);font-family:'Space Mono',monospace;white-space:nowrap}
+.pg-btns{display:flex;gap:6px;align-items:center}
+.pg-btn{background:var(--card);border:1px solid var(--border);color:var(--text);padding:6px 12px;border-radius:8px;cursor:pointer;font-size:.78rem;font-family:'DM Sans',sans-serif;transition:all .2s}
+.pg-btn:hover:not(:disabled){border-color:var(--green);color:var(--green)}
+.pg-btn:disabled{opacity:.3;cursor:default}
+.pg-btn.active{background:var(--green);color:#000;border-color:var(--green)}
+
+/* GRID */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:14px}
+.acard{background:var(--card);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;cursor:pointer;transition:transform .3s cubic-bezier(.34,1.56,.64,1),border-color .3s,box-shadow .3s}
+.acard:hover{transform:translateY(-6px) scale(1.02);box-shadow:0 16px 40px rgba(0,0,0,.5)}
+.acard[data-cat=terrestre]:hover{border-color:var(--amber);box-shadow:0 16px 40px rgba(0,0,0,.5),0 0 20px rgba(255,184,48,.12)}
+.acard[data-cat=marin]:hover{border-color:var(--ocean);box-shadow:0 16px 40px rgba(0,0,0,.5),0 0 20px rgba(0,200,255,.12)}
+.acard[data-cat=insecte]:hover{border-color:var(--insect);box-shadow:0 16px 40px rgba(0,0,0,.5),0 0 20px rgba(201,125,255,.12)}
+.ci{width:100%;height:155px;overflow:hidden;position:relative;background:var(--bg2);display:flex;align-items:center;justify-content:center;font-size:3.5rem}
+.ci img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .4s}
+.acard:hover .ci img{transform:scale(1.08)}
+.ci::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,transparent 50%,var(--card));z-index:1;pointer-events:none}
+.cdot{position:absolute;top:9px;right:9px;width:7px;height:7px;border-radius:50%;z-index:2}
+[data-cat=terrestre] .cdot{background:var(--amber);box-shadow:0 0 7px var(--amber)}
+[data-cat=marin] .cdot{background:var(--ocean);box-shadow:0 0 7px var(--ocean)}
+[data-cat=insecte] .cdot{background:var(--insect);box-shadow:0 0 7px var(--insect)}
+.cb{padding:11px 13px 13px}
+.cb h3{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;color:var(--white);margin-bottom:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cb .lat{font-size:.65rem;color:var(--muted);font-style:italic;margin-bottom:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mpill{font-size:.6rem;padding:2px 7px;border-radius:20px;border:1px solid;font-family:'Space Mono',monospace;font-weight:700}
+[data-cat=terrestre] .mpill{border-color:var(--amber);color:var(--amber)}
+[data-cat=marin] .mpill{border-color:var(--ocean);color:var(--ocean)}
+[data-cat=insecte] .mpill{border-color:var(--insect);color:var(--insect)}
+
+/* LOADING SPINNER */
+.grid-loading{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px;gap:16px;grid-column:1/-1}
+.spinner{width:40px;height:40px;border:3px solid var(--border);border-top-color:var(--green);border-radius:50%;animation:spin 0.8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* MODALS */
+.ov{position:fixed;inset:0;background:rgba(0,0,0,.85);backdrop-filter:blur(12px);z-index:200;display:flex;align-items:center;justify-content:center;padding:16px;opacity:0;pointer-events:none;transition:opacity .3s}
+.ov.open{opacity:1;pointer-events:all}
+.modal{background:var(--card);border:1px solid var(--border);border-radius:22px;max-width:680px;width:100%;max-height:90vh;overflow-y:auto;transform:scale(.9) translateY(20px);transition:transform .4s cubic-bezier(.34,1.56,.64,1);position:relative}
+.ov.open .modal,.ov.open .qmodal{transform:scale(1) translateY(0)}
+.modal::-webkit-scrollbar{width:3px}.modal::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
+.mhero{width:100%;height:240px;overflow:hidden;border-radius:22px 22px 0 0;position:relative;background:var(--bg2);display:flex;align-items:center;justify-content:center;font-size:6rem}
+.mhero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.mhero-ov{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,.05),rgba(18,30,23,.95))}
+.mhero-ct{position:absolute;bottom:18px;left:26px;right:44px;display:flex;align-items:flex-end;gap:12px}
+.me{font-size:3rem;line-height:1}
+.mt h2{font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:900;color:var(--white);line-height:1;margin-bottom:3px}
+.mt .lat{font-size:.78rem;color:rgba(232,245,238,.6);font-style:italic}
+.mcls{position:absolute;top:13px;right:13px;width:32px;height:32px;border-radius:50%;background:rgba(0,0,0,.6);border:1px solid rgba(255,255,255,.2);color:var(--white);font-size:.95rem;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:10;transition:all .2s}
+.mcls:hover{background:rgba(0,0,0,.9)}
+.mbody{padding:16px 26px 26px}
+.mtabs{display:flex;gap:3px;border-bottom:1px solid var(--border);margin-bottom:18px}
+.mtab{padding:8px 14px;font-size:.73rem;font-weight:600;text-transform:uppercase;letter-spacing:1px;cursor:pointer;color:var(--muted);border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .2s}
+.mtab.active{color:var(--green);border-bottom-color:var(--green)}
+.mc{display:none}.mc.active{display:block}
+.igrid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:14px}
+.ii{background:var(--bg);border:1px solid var(--border);border-radius:9px;padding:11px}
+.ii label{font-size:.6rem;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);display:block;margin-bottom:3px}
+.ii span{font-family:'Space Mono',monospace;font-size:.82rem;color:var(--white);font-weight:700}
+.aic{background:var(--bg);border:1px solid var(--border);border-radius:9px;padding:16px;min-height:70px;font-size:.86rem;line-height:1.7;color:var(--text)}
+.load{display:flex;align-items:center;gap:8px;color:var(--muted)}
+.da{display:flex;gap:4px}
+.da span{width:5px;height:5px;border-radius:50%;background:var(--green);animation:db 1.2s ease-in-out infinite}
+.da span:nth-child(2){animation-delay:.2s}.da span:nth-child(3){animation-delay:.4s}
+@keyframes db{0%,80%,100%{transform:scale(.6);opacity:.4}40%{transform:scale(1);opacity:1}}
+.anec{background:linear-gradient(135deg,rgba(255,184,48,.08),rgba(255,184,48,.02));border:1px solid rgba(255,184,48,.3);border-radius:9px;padding:16px;font-size:.86rem;line-height:1.7}
+.anec::before{content:'😄';display:block;font-size:1.3rem;margin-bottom:7px}
+.hcmp{background:linear-gradient(135deg,rgba(0,200,255,.06),transparent);border:1px solid rgba(0,200,255,.2);border-radius:9px;padding:16px;margin-top:12px}
+.cbars{display:flex;flex-direction:column;gap:11px;margin-top:10px}
+.crow{display:grid;grid-template-columns:62px 1fr 62px;align-items:center;gap:6px}
+.cl{font-family:'Space Mono',monospace;color:var(--muted);font-size:.58rem;text-align:right}
+.cl.r{text-align:left}
+.bt{height:7px;background:var(--border);border-radius:4px;position:relative;overflow:hidden}
+.bh{position:absolute;right:50%;top:0;height:100%;background:var(--ocean);border-radius:4px;transition:width .8s cubic-bezier(.34,1.56,.64,1)}
+.ba{position:absolute;left:50%;top:0;height:100%;background:var(--green);border-radius:4px;transition:width .8s cubic-bezier(.34,1.56,.64,1)}
+
+/* GAMES */
+.gsec{padding:0 5vw 60px}
+.stitle{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,4vw,3rem);font-weight:900;letter-spacing:-1px;margin-bottom:6px}
+.ggrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px}
+.gcard{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:22px;cursor:pointer;transition:all .3s;position:relative;overflow:hidden}
+.gcard::before{content:'';position:absolute;inset:0;background:var(--gg);opacity:0;transition:opacity .3s}
+.gcard:hover::before{opacity:1}
+.gcard:hover{transform:translateY(-4px);border-color:var(--gc)}
+.gico{font-size:2.2rem;margin-bottom:10px}
+.gcard h3{font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--white);margin-bottom:6px}
+.gcard p{font-size:.78rem;color:var(--muted);line-height:1.5}
+.gbdg{display:inline-block;margin-top:10px;font-size:.6rem;font-family:'Space Mono',monospace;font-weight:700;padding:3px 9px;border-radius:20px;background:var(--gcb);color:var(--gc);letter-spacing:1px;text-transform:uppercase}
+.qmodal{background:var(--card);border:1px solid var(--border);border-radius:22px;max-width:500px;width:100%;padding:28px;transform:scale(.9);transition:transform .4s cubic-bezier(.34,1.56,.64,1);position:relative}
+.qsc{text-align:center;font-family:'Space Mono',monospace;font-size:.76rem;color:var(--muted);margin-bottom:12px}
+.qq{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:700;color:var(--white);margin-bottom:20px;line-height:1.3;text-align:center}
+.qopts{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px}
+.qo{background:var(--bg);border:1px solid var(--border);border-radius:9px;padding:11px;cursor:pointer;font-size:.8rem;color:var(--text);text-align:center;transition:all .2s;font-family:'DM Sans',sans-serif;line-height:1.3}
+.qo:hover:not(.answered){border-color:var(--green);color:var(--white)}
+.qo.correct{background:rgba(61,255,143,.15);border-color:var(--green);color:var(--green)}
+.qo.wrong{background:rgba(255,80,80,.1);border-color:rgba(255,80,80,.5);color:rgba(255,80,80,.8)}
+.btn{background:var(--green);color:#000;border:none;padding:10px 24px;border-radius:50px;font-weight:700;font-size:.8rem;cursor:pointer;transition:all .2s;font-family:'DM Sans',sans-serif}
+.btn:hover{background:var(--white);transform:scale(1.03)}
+.btn-g{background:transparent;border:1px solid var(--border);color:var(--text)}
+.btn-g:hover{background:var(--bg2);border-color:var(--text)}
+.bc{display:flex;justify-content:center;gap:8px;margin-top:12px}
+.aw{font-family:'Space Mono',monospace;font-size:2rem;font-weight:700;text-align:center;letter-spacing:5px;color:var(--green);margin:18px 0;text-transform:uppercase;word-break:break-all}
+.ai2{background:var(--bg);border:1px solid var(--border);color:var(--white);padding:10px 16px;border-radius:9px;font-size:.9rem;font-family:'Space Mono',monospace;text-align:center;width:100%;outline:none;transition:border-color .2s;margin-bottom:9px}
+.ai2:focus{border-color:var(--green)}
+.gr{text-align:center;font-family:'Space Mono',monospace;font-size:.88rem;min-height:26px;margin-bottom:8px}
+.silw{text-align:center;margin:16px 0}
+.sil{width:180px;height:130px;object-fit:cover;border-radius:9px;filter:brightness(0);transition:filter .6s ease}
+.sil.rev{filter:brightness(1)}
+
+/* SPECIES TREE MODAL */
+.tree-ov{position:fixed;inset:0;background:rgba(5,10,8,.97);z-index:300;display:flex;flex-direction:column;opacity:0;pointer-events:none;transition:opacity .3s}
+.tree-ov.open{opacity:1;pointer-events:all}
+.tree-header{padding:16px 24px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);flex-shrink:0}
+.tree-header h2{font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--white);font-weight:900}
+.tree-header p{font-size:.78rem;color:var(--muted)}
+.tree-search{background:var(--card);border:1px solid var(--border);color:var(--text);padding:8px 16px;border-radius:50px;font-size:.8rem;font-family:'DM Sans',sans-serif;outline:none;width:220px}
+.tree-search:focus{border-color:var(--green)}
+.tree-body{flex:1;overflow:auto;padding:24px}
+.tree-root{display:flex;gap:0}
+.tree-col{display:flex;flex-direction:column;gap:6px;min-width:220px;padding-right:16px;border-right:1px solid var(--border)}
+.tree-col:last-child{border-right:none}
+.tree-col-title{font-family:'Space Mono',monospace;font-size:.65rem;text-transform:uppercase;letter-spacing:2px;color:var(--muted);padding:4px 10px;margin-bottom:4px}
+.tnode{background:var(--card);border:1px solid var(--border);border-radius:9px;padding:9px 12px;cursor:pointer;transition:all .2s;position:relative}
+.tnode:hover,.tnode.sel{border-color:var(--green);background:#1a2e22}
+.tnode.sel::after{content:'▶';position:absolute;right:10px;top:50%;transform:translateY(-50%);color:var(--green);font-size:.7rem}
+.tnode-name{font-size:.82rem;font-weight:600;color:var(--white)}
+.tnode-count{font-family:'Space Mono',monospace;font-size:.6rem;color:var(--muted)}
+.tnode-icon{font-size:1.1rem;margin-bottom:3px}
+.animal-list-wrap{flex:1;overflow-y:auto;padding-left:20px;min-width:320px}
+.animal-list-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px;padding-bottom:20px}
+.al-card{background:var(--card);border:1px solid var(--border);border-radius:9px;padding:10px;cursor:pointer;transition:all .2s;text-align:center}
+.al-card:hover{border-color:var(--green);transform:translateY(-2px)}
+.al-card .emoji{font-size:2rem;display:block;margin-bottom:4px}
+.al-card .name{font-size:.75rem;font-weight:600;color:var(--white)}
+.al-card .latin-s{font-size:.6rem;color:var(--muted);font-style:italic}
+
+footer{border-top:1px solid var(--border);padding:32px 5vw;display:flex;align-items:center;justify-content:space-between}
+footer p{font-size:.76rem;color:var(--muted)}
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .5s,transform .5s}
+.reveal.visible{opacity:1;transform:none}
+.stk{background:linear-gradient(90deg,rgba(255,184,48,.12),rgba(61,255,143,.06));border:1px solid rgba(255,184,48,.25);border-radius:var(--r);padding:12px 16px;display:flex;align-items:center;gap:10px;margin-bottom:2rem;font-size:.82rem}
+.stk strong{color:var(--amber)}
+.scrtop{position:fixed;bottom:26px;right:26px;width:40px;height:40px;border-radius:50%;background:var(--green);color:#000;border:none;cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(61,255,143,.3);opacity:0;pointer-events:none;transition:opacity .3s,transform .2s;z-index:90}
+.scrtop.vis{opacity:1;pointer-events:all}
+.scrtop:hover{transform:scale(1.1) translateY(-2px)}
+@media(max-width:600px){nav{display:none}.igrid{grid-template-columns:1fr}.qopts{grid-template-columns:1fr}.hstats{gap:1.2rem}.tree-body{flex-direction:column}.tree-col{min-width:100%;border-right:none;border-bottom:1px solid var(--border);padding-bottom:12px}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo" onclick="window.scrollTo({top:0,behavior:'smooth'})">Animal<span>Verse</span></div>
+  <nav>
+    <button onclick="goto('enc')">📚 Encyclopédie</button>
+    <button onclick="goto('jeux')">🎮 Jeux</button>
+    <button onclick="openAOTD()">🌟 Animal du Jour</button>
+    <button class="tree-btn" onclick="openTree()">🌳 Arbre des Espèces</button>
+  </nav>
+  <button class="badge" onclick="openAOTD()">✨ Nouveau</button>
+</header>
+
+<section class="hero">
+  <div class="hero-bg"></div>
+  <h1>Explorer le<br><em>Règne Animal</em></h1>
+  <p>10 000+ espèces générées par l'IA. Des abysses aux sommets — l'encyclopédie animale la plus complète du web.</p>
+  <div class="hstats">
+    <div><div class="sn" id="totalCount">…</div><div class="sl">Animaux</div></div>
+    <div><div class="sn">3</div><div class="sl">Catégories</div></div>
+    <div><div class="sn" id="groupCount">…</div><div class="sl">Groupes</div></div>
+    <div><div class="sn">∞</div><div class="sl">À découvrir</div></div>
+  </div>
+  <div class="aotd reveal" id="aotdCard">
+    <img id="aotdImg" src="" alt="">
+    <div>
+      <small>🌟 Animal du jour</small>
+      <h3 id="aotdName">Chargement…</h3>
+      <p id="aotdFact"></p>
+    </div>
+  </div>
+</section>
+
+<section class="sec reveal" id="enc">
+  <div class="stk"><span style="font-size:1.3rem">🔥</span><span>Streak : <strong id="streakNum">1 jour</strong> — Revenez demain pour un animal secret !</span></div>
+  <div class="filter-bar">
+    <div class="tabs">
+      <button class="tab active" data-cat="all">🌍 Tous</button>
+      <button class="tab" data-cat="terrestre">🦁 Terrestres</button>
+      <button class="tab" data-cat="marin">🐋 Marins</button>
+      <button class="tab" data-cat="insecte">🦋 Insectes</button>
+    </div>
+    <select class="ss" id="sortSel">
+      <option value="nom">Alphabétique</option>
+      <option value="puissance">Par puissance</option>
+      <option value="taille">Par taille</option>
+      <option value="poids">Par poids</option>
+    </select>
+    <input class="si" id="searchIn" placeholder="🔍 Rechercher…">
+    <div class="pg-info"><span id="pgInfo"></span></div>
+    <div class="pg-btns">
+      <button class="pg-btn" id="pgPrev" onclick="changePage(-1)">← Préc.</button>
+      <span id="pgNums" style="display:flex;gap:4px"></span>
+      <button class="pg-btn" id="pgNext" onclick="changePage(1)">Suiv. →</button>
+    </div>
+  </div>
+  <div class="grid" id="grid"></div>
+  <div class="filter-bar" style="margin-top:1.2rem;justify-content:center">
+    <div class="pg-btns">
+      <button class="pg-btn" id="pgPrev2" onclick="changePage(-1)">← Préc.</button>
+      <button class="pg-btn" id="pgNext2" onclick="changePage(1)">Suiv. →</button>
+    </div>
+  </div>
+</section>
+
+<section class="gsec" id="jeux">
+  <h2 class="stitle reveal">Mini-<em style="color:var(--green)">Jeux</em></h2>
+  <p style="color:var(--muted);margin-bottom:1.6rem;font-size:.95rem" class="reveal">Teste tes connaissances sur 10 000 espèces !</p>
+  <div class="ggrid">
+    <div class="gcard reveal" style="--gg:linear-gradient(135deg,rgba(61,255,143,.08),transparent);--gc:var(--green);--gcb:rgba(61,255,143,.12)" onclick="openQuiz()">
+      <div class="gico">🧠</div><h3>Quiz Express</h3><p>20 questions sur les records du règne animal.</p><span class="gbdg">Quiz</span>
+    </div>
+    <div class="gcard reveal" style="--gg:linear-gradient(135deg,rgba(255,184,48,.08),transparent);--gc:var(--amber);--gcb:rgba(255,184,48,.12)" onclick="openAnagram()">
+      <div class="gico">🔤</div><h3>Anagramme Sauvage</h3><p>Retrouvez l'animal à partir de ses lettres mélangées.</p><span class="gbdg" style="color:var(--amber);background:rgba(255,184,48,.12)">Lettres</span>
+    </div>
+    <div class="gcard reveal" style="--gg:linear-gradient(135deg,rgba(0,200,255,.08),transparent);--gc:var(--ocean);--gcb:rgba(0,200,255,.12)" onclick="openSil()">
+      <div class="gico">🌑</div><h3>Silhouette Mystère</h3><p>Identifiez l'animal caché dans l'ombre.</p><span class="gbdg" style="color:var(--ocean);background:rgba(0,200,255,.12)">Visuel</span>
+    </div>
+    <div class="gcard reveal" style="--gg:linear-gradient(135deg,rgba(201,125,255,.08),transparent);--gc:var(--insect);--gcb:rgba(201,125,255,.12)" onclick="openComp()">
+      <div class="gico">⚖️</div><h3>Animal ou Humain ?</h3><p>Qui détient le record — animal ou humain ?</p><span class="gbdg" style="color:var(--insect);background:rgba(201,125,255,.12)">Duel</span>
+    </div>
+    <div class="gcard reveal" style="--gg:linear-gradient(135deg,rgba(255,100,100,.08),transparent);--gc:#ff6464;--gcb:rgba(255,100,100,.12)" onclick="openTree()">
+      <div class="gico">🌳</div><h3>Arbre des Espèces</h3><p>Explorez l'arbre taxonomique complet du règne animal.</p><span class="gbdg" style="color:#ff6464;background:rgba(255,100,100,.12)">Exploration</span>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="logo">Animal<span>Verse</span></div>
+  <p>10 000+ espèces · Propulsé par l'IA Claude · 🌿</p>
+</footer>
+<button class="scrtop" id="scrtop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<!-- ANIMAL MODAL -->
+<div class="ov" id="aModal">
+  <div class="modal">
+    <button class="mcls" onclick="closeOv('aModal')">✕</button>
+    <div class="mhero" id="mHero">
+      <img id="mImg" src="" alt="" onerror="this.style.display='none'">
+      <span id="mFb" style="z-index:1;position:relative"></span>
+      <div class="mhero-ov"></div>
+      <div class="mhero-ct"><span class="me" id="mEmoji"></span><div class="mt"><h2 id="mName"></h2><div class="lat" id="mLat"></div></div></div>
+    </div>
+    <div class="mbody">
+      <div class="mtabs">
+        <div class="mtab active" onclick="swTab(this,'inf')">📋 Infos</div>
+        <div class="mtab" onclick="swTab(this,'anec')">😄 Anecdote</div>
+        <div class="mtab" onclick="swTab(this,'hum')">🧑 vs Humain</div>
+      </div>
+      <div class="mc active" id="tab-inf">
+        <div class="igrid" id="iGrid"></div>
+        <div class="aic" id="aiD"><div class="load"><div class="da"><span></span><span></span><span></span></div>&nbsp;L'IA génère une description…</div></div>
+      </div>
+      <div class="mc" id="tab-anec">
+        <div class="anec" id="aiA"><div class="load"><div class="da"><span></span><span></span><span></span></div>&nbsp;Recherche d'une anecdote…</div></div>
+      </div>
+      <div class="mc" id="tab-hum">
+        <div class="hcmp">
+          <h4 style="font-family:'Playfair Display',serif;color:var(--white);margin-bottom:3px">Comparaison avec l'Humain</h4>
+          <p style="font-size:.7rem;color:var(--muted);margin-bottom:12px">🔵 Humain · 🟢 Animal</p>
+          <div class="cbars" id="cBars"></div>
+        </div>
+        <div class="aic" style="margin-top:12px" id="aiC"><div class="load"><div class="da"><span></span><span></span><span></span></div>&nbsp;Analyse comparative…</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- QUIZ -->
+<div class="ov" id="qzOv"><div class="qmodal">
+  <button class="mcls" onclick="closeOv('qzOv')">✕</button>
+  <div class="qsc">Score : <span id="qSc">0</span> / <span id="qTot">0</span></div>
+  <div class="qq" id="qQ"></div><div class="qopts" id="qOpts"></div>
+  <div class="bc"><button class="btn" id="qNext" onclick="nextQ()" style="display:none">Suivant →</button></div>
+</div></div>
+
+<!-- ANAGRAM -->
+<div class="ov" id="anOv"><div class="qmodal">
+  <button class="mcls" onclick="closeOv('anOv')">✕</button>
+  <h2 style="font-family:'Playfair Display',serif;color:var(--white);text-align:center;margin-bottom:5px">🔤 Anagramme Sauvage</h2>
+  <p style="text-align:center;color:var(--muted);font-size:.8rem">Retrouvez l'animal caché</p>
+  <div class="aw" id="anW"></div>
+  <input class="ai2" id="anIn" placeholder="Votre réponse…" onkeydown="if(event.key==='Enter')chkAn()">
+  <div class="gr" id="anR"></div>
+  <div class="bc"><button class="btn" onclick="chkAn()">Vérifier</button><button class="btn btn-g" onclick="newAn()">🔀 Nouveau</button></div>
+</div></div>
+
+<!-- SILHOUETTE -->
+<div class="ov" id="silOv"><div class="qmodal">
+  <button class="mcls" onclick="closeOv('silOv')">✕</button>
+  <h2 style="font-family:'Playfair Display',serif;color:var(--white);text-align:center;margin-bottom:5px">🌑 Silhouette Mystère</h2>
+  <p style="text-align:center;color:var(--muted);font-size:.8rem">Quel animal se cache dans l'ombre ?</p>
+  <div class="silw"><img class="sil" id="silI" src="" alt=""></div>
+  <div class="qopts" id="silOpts"></div><div class="gr" id="silR"></div>
+  <div class="bc"><button class="btn btn-g" onclick="newSil()">🔀 Suivant</button></div>
+</div></div>
+
+<!-- COMP -->
+<div class="ov" id="cpOv"><div class="qmodal">
+  <button class="mcls" onclick="closeOv('cpOv')">✕</button>
+  <div class="qsc">Score : <span id="cpSc">0</span></div>
+  <h2 style="font-family:'Playfair Display',serif;color:var(--white);text-align:center;font-size:1.3rem;margin-bottom:20px;line-height:1.3" id="cpQ"></h2>
+  <div class="qopts" id="cpOpts"></div><div class="gr" id="cpR"></div>
+  <div class="bc"><button class="btn" id="cpNext" onclick="nextCp()" style="display:none">Suivant →</button></div>
+</div></div>
+
+<!-- SPECIES TREE -->
+<div class="tree-ov" id="treeOv">
+  <div class="tree-header">
+    <div>
+      <h2>🌳 Arbre des Espèces</h2>
+      <p>Classification taxonomique complète du règne animal</p>
+    </div>
+    <div style="display:flex;align-items:center;gap:12px">
+      <input class="tree-search" id="treeSearch" placeholder="🔍 Rechercher une espèce…" oninput="filterTree(this.value)">
+      <button class="mcls" style="position:static;width:36px;height:36px" onclick="closeOv('treeOv')">✕</button>
+    </div>
+  </div>
+  <div class="tree-body">
+    <div style="display:flex;gap:0;height:100%">
+      <div id="treeCols" style="display:flex;gap:0;overflow-x:auto;flex-shrink:0;max-width:60%"></div>
+      <div class="animal-list-wrap" id="animalListWrap">
+        <div style="display:flex;align-items:center;justify-content:center;height:200px;color:var(--muted);flex-direction:column;gap:12px">
+          <span style="font-size:3rem">🌿</span>
+          <p style="font-size:.9rem">Sélectionnez un groupe pour voir ses animaux</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════════════
+// TAXONOMIC TREE STRUCTURE
+// ═══════════════════════════════════════════════════════
+const TREE = {
+  name:"Règne Animal",icon:"🌍",
+  children:[
+    {name:"Mammifères",icon:"🦁",cat:"terrestre",children:[
+      {name:"Carnivores",icon:"🐾",children:[
+        {name:"Félidés",icon:"🐱",key:"felidae"},
+        {name:"Canidés",icon:"🐺",key:"canidae"},
+        {name:"Ursidés",icon:"🐻",key:"ursidae"},
+        {name:"Mustélidés",icon:"🦡",key:"mustelidae"},
+        {name:"Hyénidés",icon:"🐕",key:"hyenidae"},
+        {name:"Viverridés",icon:"🦡",key:"viverridae"},
+      ]},
+      {name:"Primates",icon:"🐒",children:[
+        {name:"Hominidés",icon:"🦍",key:"hominidae"},
+        {name:"Cébidés",icon:"🐒",key:"cebidae"},
+        {name:"Cercopithécidés",icon:"🐒",key:"cercopithecidae"},
+        {name:"Lémuriens",icon:"🐾",key:"lemuridae"},
+      ]},
+      {name:"Proboscidiens",icon:"🐘",key:"proboscidea"},
+      {name:"Périssodactyles",icon:"🦏",children:[
+        {name:"Équidés",icon:"🦓",key:"equidae"},
+        {name:"Rhinocérotidés",icon:"🦏",key:"rhinocerotidae"},
+        {name:"Tapiridés",icon:"🐾",key:"tapiridae"},
+      ]},
+      {name:"Artiodactyles",icon:"🦌",children:[
+        {name:"Bovidés",icon:"🐂",key:"bovidae"},
+        {name:"Cervidés",icon:"🦌",key:"cervidae"},
+        {name:"Camélidés",icon:"🐪",key:"camelidae"},
+        {name:"Suidés",icon:"🐗",key:"suidae"},
+        {name:"Hippopotamidés",icon:"🦛",key:"hippopotamidae"},
+        {name:"Giraffidés",icon:"🦒",key:"giraffidae"},
+      ]},
+      {name:"Marsupiaux",icon:"🦘",children:[
+        {name:"Macropodidés",icon:"🦘",key:"macropodidae"},
+        {name:"Phascolarctidés",icon:"🐨",key:"phascolarctidae"},
+        {name:"Dasyuridés",icon:"🦡",key:"dasyuridae"},
+        {name:"Vombatidés",icon:"🐾",key:"vombatidae"},
+      ]},
+      {name:"Rongeurs",icon:"🐭",children:[
+        {name:"Sciuridés",icon:"🐿️",key:"sciuridae"},
+        {name:"Muridés",icon:"🐭",key:"muridae"},
+        {name:"Caviidés",icon:"🐹",key:"caviidae"},
+        {name:"Castoridés",icon:"🦫",key:"castoridae"},
+      ]},
+      {name:"Chiroptères",icon:"🦇",children:[
+        {name:"Roussettes",icon:"🦇",key:"pteropodidae"},
+        {name:"Microchiroptères",icon:"🦇",key:"microchiroptera"},
+      ]},
+      {name:"Insectivores",icon:"🦔",children:[
+        {name:"Érinacéidés",icon:"🦔",key:"erinaceidae"},
+        {name:"Soricidés",icon:"🐾",key:"soricidae"},
+        {name:"Talpidés",icon:"🐾",key:"talpidae"},
+      ]},
+      {name:"Xénarthres",icon:"🐾",children:[
+        {name:"Dasypodidés",icon:"🐾",key:"dasypodidae"},
+        {name:"Fourmiliers",icon:"🐾",key:"myrmecophagidae"},
+        {name:"Bradypodidés",icon:"🦥",key:"bradypodidae"},
+      ]},
+      {name:"Paenungulata",icon:"🐾",children:[
+        {name:"Hyracoïdes",icon:"🐾",key:"procaviidae"},
+        {name:"Siréniens",icon:"🐾",key:"sirenia"},
+      ]},
+    ]},
+    {name:"Mammifères Marins",icon:"🐋",cat:"marin",children:[
+      {name:"Cétacés",icon:"🐋",children:[
+        {name:"Mysticètes",icon:"🐋",key:"mysticeti"},
+        {name:"Odontocètes",icon:"🐬",key:"odontoceti"},
+      ]},
+      {name:"Pinnipèdes",icon:"🦭",children:[
+        {name:"Phocidés",icon:"🦭",key:"phocidae"},
+        {name:"Otariidés",icon:"🦭",key:"otariidae"},
+        {name:"Odobenidés",icon:"🦭",key:"odobenidae"},
+      ]},
+    ]},
+    {name:"Oiseaux",icon:"🦅",cat:"terrestre",children:[
+      {name:"Rapaces",icon:"🦅",children:[
+        {name:"Accipitridés",icon:"🦅",key:"accipitridae"},
+        {name:"Falconidés",icon:"🦅",key:"falconidae"},
+        {name:"Strigidés",icon:"🦉",key:"strigidae"},
+      ]},
+      {name:"Passereaux",icon:"🐦",children:[
+        {name:"Fringillidés",icon:"🐦",key:"fringillidae"},
+        {name:"Emberizidés",icon:"🐦",key:"emberizidae"},
+        {name:"Muscicapidés",icon:"🐦",key:"muscicapidae"},
+        {name:"Turdidés",icon:"🐦",key:"turdidae"},
+      ]},
+      {name:"Ratites",icon:"🦃",children:[
+        {name:"Struthionidés",icon:"🦃",key:"struthionidae"},
+        {name:"Rhéidés",icon:"🦃",key:"rheidae"},
+        {name:"Casuariidés",icon:"🦃",key:"casuariidae"},
+        {name:"Aptérygidés",icon:"🐾",key:"apterygidae"},
+      ]},
+      {name:"Psittaciformes",icon:"🦜",key:"psittacidae"},
+      {name:"Colombiformes",icon:"🕊️",key:"columbidae"},
+      {name:"Galliformes",icon:"🐓",key:"phasianidae"},
+      {name:"Ansériformes",icon:"🦆",key:"anatidae"},
+      {name:"Sphénisciformes",icon:"🐧",key:"spheniscidae"},
+      {name:"Pélécaniformes",icon:"🐦",key:"pelecanidae"},
+      {name:"Ciconiiformes",icon:"🐦",key:"ciconiidae"},
+      {name:"Coraciiformes",icon:"🐦",key:"coraciidae"},
+    ]},
+    {name:"Reptiles",icon:"🦎",cat:"terrestre",children:[
+      {name:"Squamates",icon:"🦎",children:[
+        {name:"Lacertidés",icon:"🦎",key:"lacertidae"},
+        {name:"Varanidés",icon:"🦎",key:"varanidae"},
+        {name:"Iguanidés",icon:"🦎",key:"iguanidae"},
+        {name:"Geckos",icon:"🦎",key:"gekkonidae"},
+        {name:"Caméléonidés",icon:"🦎",key:"chamaeleonidae"},
+        {name:"Colubridés",icon:"🐍",key:"colubridae"},
+        {name:"Vipéridés",icon:"🐍",key:"viperidae"},
+        {name:"Élapidés",icon:"🐍",key:"elapidae"},
+        {name:"Pythonidés",icon:"🐍",key:"pythonidae"},
+        {name:"Boïdés",icon:"🐍",key:"boidae"},
+      ]},
+      {name:"Crocodiliens",icon:"🐊",children:[
+        {name:"Crocodilidés",icon:"🐊",key:"crocodilidae"},
+        {name:"Alligatoridés",icon:"🐊",key:"alligatoridae"},
+        {name:"Gavialidés",icon:"🐊",key:"gavialidae"},
+      ]},
+      {name:"Chéloniens",icon:"🐢",children:[
+        {name:"Tortues Marines",icon:"🐢",key:"cheloniidae"},
+        {name:"Tortues Terrestres",icon:"🐢",key:"testudinidae"},
+        {name:"Tortues d'Eau Douce",icon:"🐢",key:"emydidae"},
+      ]},
+    ]},
+    {name:"Amphibiens",icon:"🐸",cat:"terrestre",children:[
+      {name:"Anoures",icon:"🐸",children:[
+        {name:"Ranidés",icon:"🐸",key:"ranidae"},
+        {name:"Bufonidés",icon:"🐸",key:"bufonidae"},
+        {name:"Hylicés",icon:"🐸",key:"hylidae"},
+        {name:"Dendrobatidés",icon:"🐸",key:"dendrobatidae"},
+      ]},
+      {name:"Urodèles",icon:"🐸",children:[
+        {name:"Salamandridés",icon:"🐸",key:"salamandridae"},
+        {name:"Pléthodontidés",icon:"🐸",key:"plethodontidae"},
+        {name:"Cryptobranchidés",icon:"🐸",key:"cryptobranchidae"},
+        {name:"Ambystomatidés",icon:"🐸",key:"ambystomatidae"},
+      ]},
+      {name:"Gymnophiones",icon:"🐍",key:"gymnophiona"},
+    ]},
+    {name:"Poissons",icon:"🐟",cat:"marin",children:[
+      {name:"Actinoptérygiens",icon:"🐟",children:[
+        {name:"Salmonidés",icon:"🐟",key:"salmonidae"},
+        {name:"Clupéidés",icon:"🐟",key:"clupeidae"},
+        {name:"Scombridés",icon:"🐟",key:"scombridae"},
+        {name:"Tétraodontidés",icon:"🐟",key:"tetraodontidae"},
+        {name:"Gobiidés",icon:"🐟",key:"gobiidae"},
+        {name:"Pomacentridés",icon:"🐠",key:"pomacentridae"},
+        {name:"Labridés",icon:"🐠",key:"labridae"},
+        {name:"Anguillidés",icon:"🐍",key:"anguillidae"},
+        {name:"Syngnathidés",icon:"🐟",key:"syngnathidae"},
+        {name:"Ostéoglossidés",icon:"🐟",key:"osteoglossidae"},
+      ]},
+      {name:"Chondrichtyens",icon:"🦈",children:[
+        {name:"Carcharhinidés",icon:"🦈",key:"carcharhinidae"},
+        {name:"Lamnidés",icon:"🦈",key:"lamnidae"},
+        {name:"Rhincodontidés",icon:"🦈",key:"rhincodontidae"},
+        {name:"Sphyrnidés",icon:"🦈",key:"sphyrnidae"},
+        {name:"Rajidés",icon:"🐟",key:"rajidae"},
+        {name:"Myliobatidés",icon:"🐟",key:"myliobatidae"},
+      ]},
+      {name:"Agnathes",icon:"🐟",children:[
+        {name:"Pétromyzontidés",icon:"🐍",key:"petromyzontidae"},
+        {name:"Myxinidés",icon:"🐍",key:"myxinidae"},
+      ]},
+    ]},
+    {name:"Mollusques",icon:"🐙",cat:"marin",children:[
+      {name:"Céphalopodes",icon:"🐙",children:[
+        {name:"Octopodidés",icon:"🐙",key:"octopodidae"},
+        {name:"Loliginidés",icon:"🦑",key:"loliginidae"},
+        {name:"Architeuthidés",icon:"🦑",key:"architeuthidae"},
+        {name:"Nautilés",icon:"🐚",key:"nautilidae"},
+        {name:"Sépiadés",icon:"🦑",key:"sepiidae"},
+      ]},
+      {name:"Gastéropodes",icon:"🐌",children:[
+        {name:"Hélicidés",icon:"🐌",key:"helicidae"},
+        {name:"Conidés",icon:"🐚",key:"conidae"},
+        {name:"Murexidés",icon:"🐚",key:"muricidae"},
+      ]},
+      {name:"Bivalves",icon:"🐚",children:[
+        {name:"Ostreïdés",icon:"🐚",key:"ostreidae"},
+        {name:"Mytilés",icon:"🐚",key:"mytilidae"},
+        {name:"Vénéridés",icon:"🐚",key:"veneridae"},
+      ]},
+    ]},
+    {name:"Crustacés",icon:"🦀",cat:"marin",children:[
+      {name:"Décapodes",icon:"🦐",children:[
+        {name:"Homards",icon:"🦞",key:"nephropidae"},
+        {name:"Crabes",icon:"🦀",key:"brachyura"},
+        {name:"Crevettes",icon:"🦐",key:"caridea"},
+        {name:"Langoustes",icon:"🦞",key:"palinuridae"},
+        {name:"Bernard-l'Ermite",icon:"🐚",key:"paguridae"},
+      ]},
+      {name:"Isopodes",icon:"🦀",key:"isopoda"},
+      {name:"Cirripèdes",icon:"🐚",key:"cirripedia"},
+      {name:"Copépodes",icon:"🦐",key:"copepoda"},
+    ]},
+    {name:"Insectes",icon:"🦋",cat:"insecte",children:[
+      {name:"Lépidoptères",icon:"🦋",children:[
+        {name:"Nymphalidés",icon:"🦋",key:"nymphalidae"},
+        {name:"Papilionidés",icon:"🦋",key:"papilionidae"},
+        {name:"Sphingidés",icon:"🦋",key:"sphingidae"},
+        {name:"Saturniidés",icon:"🦋",key:"saturniidae"},
+        {name:"Noctuelles",icon:"🦋",key:"noctuidae"},
+      ]},
+      {name:"Coléoptères",icon:"🪲",children:[
+        {name:"Carabidés",icon:"🪲",key:"carabidae"},
+        {name:"Dynastinés",icon:"🪲",key:"dynastinae"},
+        {name:"Cétonidés",icon:"🪲",key:"cetoniidae"},
+        {name:"Lucanidés",icon:"🪲",key:"lucanidae"},
+        {name:"Tenebrionidés",icon:"🪲",key:"tenebrionidae"},
+        {name:"Coccinellidés",icon:"🐞",key:"coccinellidae"},
+        {name:"Dytiscidés",icon:"🪲",key:"dytiscidae"},
+        {name:"Lampyridés",icon:"🪲",key:"lampyridae"},
+      ]},
+      {name:"Hyménoptères",icon:"🐝",children:[
+        {name:"Apidés",icon:"🐝",key:"apidae"},
+        {name:"Vespidés",icon:"🐝",key:"vespidae"},
+        {name:"Formicidés",icon:"🐜",key:"formicidae"},
+        {name:"Ichneumonidés",icon:"🐝",key:"ichneumonidae"},
+      ]},
+      {name:"Diptères",icon:"🦟",children:[
+        {name:"Culicidés",icon:"🦟",key:"culicidae"},
+        {name:"Tabanidés",icon:"🦟",key:"tabanidae"},
+        {name:"Syrphidés",icon:"🦟",key:"syrphidae"},
+        {name:"Calliphoridés",icon:"🦟",key:"calliphoridae"},
+      ]},
+      {name:"Orthoptères",icon:"🦗",children:[
+        {name:"Gryllidés",icon:"🦗",key:"gryllidae"},
+        {name:"Acrididés",icon:"🦗",key:"acrididae"},
+        {name:"Tettigonidés",icon:"🦗",key:"tettigoniidae"},
+      ]},
+      {name:"Hémiptères",icon:"🪲",children:[
+        {name:"Pentatomidés",icon:"🪲",key:"pentatomidae"},
+        {name:"Aphididés",icon:"🪲",key:"aphididae"},
+        {name:"Corixidés",icon:"🪲",key:"corixidae"},
+      ]},
+      {name:"Odonates",icon:"🪲",children:[
+        {name:"Libellules",icon:"🪲",key:"libellulidae"},
+        {name:"Demoiselles",icon:"🪲",key:"coenagrionidae"},
+      ]},
+      {name:"Blattes",icon:"🪳",key:"blattodea"},
+      {name:"Mantes",icon:"🦗",key:"mantodea"},
+      {name:"Phasmes",icon:"🌿",key:"phasmatodea"},
+      {name:"Termites",icon:"🐜",key:"isoptera"},
+      {name:"Puces",icon:"🐾",key:"siphonaptera"},
+    ]},
+    {name:"Arachnides",icon:"🕷️",cat:"insecte",children:[
+      {name:"Araignées",icon:"🕷️",children:[
+        {name:"Théridiidés",icon:"🕷️",key:"theridiidae"},
+        {name:"Araneïdés",icon:"🕷️",key:"araneidae"},
+        {name:"Salticidés",icon:"🕷️",key:"salticidae"},
+        {name:"Théraphosidés",icon:"🕷️",key:"theraphosidae"},
+      ]},
+      {name:"Scorpions",icon:"🦂",key:"scorpionida"},
+      {name:"Acariens",icon:"🐾",key:"acarina"},
+      {name:"Opilions",icon:"🕷️",key:"opiliones"},
+    ]},
+    {name:"Myriapodes",icon:"🐛",cat:"insecte",children:[
+      {name:"Chilopodes",icon:"🐛",key:"chilopoda"},
+      {name:"Diplopodes",icon:"🐛",key:"diplopoda"},
+    ]},
+    {name:"Échinodermes",icon:"⭐",cat:"marin",children:[
+      {name:"Astéroïdes",icon:"⭐",key:"asteroidea"},
+      {name:"Oursins",icon:"🦔",key:"echinoidea"},
+      {name:"Holothuries",icon:"🐾",key:"holothuroidea"},
+      {name:"Ophiures",icon:"⭐",key:"ophiuroidea"},
+      {name:"Crinoïdes",icon:"🌸",key:"crinoidea"},
+    ]},
+    {name:"Cnidaires",icon:"🪼",cat:"marin",children:[
+      {name:"Méduses",icon:"🪼",key:"scyphozoa"},
+      {name:"Hydrozoaires",icon:"🪼",key:"hydrozoa"},
+      {name:"Anthozoaires",icon:"🪸",key:"anthozoa"},
+      {name:"Cubozoaires",icon:"🪼",key:"cubozoa"},
+    ]},
+    {name:"Annélides",icon:"🪱",cat:"terrestre",children:[
+      {name:"Oligochètes",icon:"🪱",key:"oligochaeta"},
+      {name:"Polychètes",icon:"🪱",key:"polychaeta"},
+      {name:"Hirudinés",icon:"🪱",key:"hirudinea"},
+    ]},
+    {name:"Éponges",icon:"🪸",cat:"marin",key:"porifera"},
+  ]
+};
+
+// ═══════════════════════════════════════════════════════
+// ANIMAL GENERATOR — données structurées par famille
+// ═══════════════════════════════════════════════════════
+const FAMILIES = {
+  felidae: {animals:[
+    {n:"Lion",e:"🦁",l:"Panthera leo",c:"terrestre",t:2.5,p:190,f:90,img:"https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Lion_waiting_in_Namibia.jpg/480px-Lion_waiting_in_Namibia.jpg"},
+    {n:"Tigre du Bengale",e:"🐯",l:"Panthera tigris",c:"terrestre",t:3.3,p:310,f:93,img:"https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Tiger_in_Ranthambhore.jpg/480px-Tiger_in_Ranthambhore.jpg"},
+    {n:"Léopard",e:"🐆",l:"Panthera pardus",c:"terrestre",t:1.9,p:90,f:84,img:"https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/Black_leopard_2.jpg/480px-Black_leopard_2.jpg"},
+    {n:"Jaguar",e:"🐆",l:"Panthera onca",c:"terrestre",t:1.8,p:100,f:86,img:"https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/Standing_jaguar.jpg/480px-Standing_jaguar.jpg"},
+    {n:"Guépard",e:"🐱",l:"Acinonyx jubatus",c:"terrestre",t:1.4,p:65,f:80,img:"https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/TheCheetah.jpg/480px-TheCheetah.jpg"},
+    {n:"Puma",e:"🐱",l:"Puma concolor",c:"terrestre",t:1.6,p:80,f:78,img:"https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Cougar_sitting.jpg/480px-Cougar_sitting.jpg"},
+    {n:"Lynx Boréal",e:"🐱",l:"Lynx lynx",c:"terrestre",t:1.1,p:30,f:65,img:"https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/Lynx_lynx_poing.jpg/480px-Lynx_lynx_poing.jpg"},
+    {n:"Caracal",e:"🐱",l:"Caracal caracal",c:"terrestre",t:0.9,p:18,f:62,img:"https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/Caracal_at_the_Africa_Alive_Zoo.jpg/480px-Caracal_at_the_Africa_Alive_Zoo.jpg"},
+    {n:"Serval",e:"🐱",l:"Leptailurus serval",c:"terrestre",t:1,p:16,f:60,img:"https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/Serval_Leptailurus_serval.jpg/480px-Serval_Leptailurus_serval.jpg"},
+    {n:"Ocelot",e:"🐱",l:"Leopardus pardalis",c:"terrestre",t:1,p:16,f:62,img:"https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Ocelot_%28Leopardus_pardalis%29.jpg/480px-Ocelot_%28Leopardus_pardalis%29.jpg"},
+    {n:"Margay",e:"🐱",l:"Leopardus wiedii",c:"terrestre",t:0.7,p:4,f:55,img:"https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Margay_cat_-_Houston_Zoo.jpg/480px-Margay_cat_-_Houston_Zoo.jpg"},
+    {n:"Jaguarondi",e:"🐱",l:"Herpailurus yagouaroundi",c:"terrestre",t:0.8,p:9,f:52,img:"https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/Jaguarundi_%28Herpailurus_yagouaroundi%29.jpg/480px-Jaguarundi_%28Herpailurus_yagouaroundi%29.jpg"},
+    {n:"Tigre de Sibérie",e:"🐯",l:"Panthera tigris altaica",c:"terrestre",t:3.7,p:360,f:94,img:"https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/Amur_Tiger_Vladivostok_Zoo_IMG_4278.jpg/480px-Amur_Tiger_Vladivostok_Zoo_IMG_4278.jpg"},
+    {n:"Lion d'Asie",e:"🦁",l:"Panthera leo persica",c:"terrestre",t:2.2,p:160,f:88,img:"https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Lion_waiting_in_Namibia.jpg/480px-Lion_waiting_in_Namibia.jpg"},
+    {n:"Tigre de Sumatra",e:"🐯",l:"Panthera tigris sumatrae",c:"terrestre",t:2.4,p:136,f:88,img:"https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Tiger_in_Ranthambhore.jpg/480px-Tiger_in_Ranthambhore.jpg"},
+    {n:"Chat Sauvage d'Afrique",e:"🐱",l:"Felis lybica",c:"terrestre",t:0.6,p:5,f:40,img:"https://upload.wikimedia.org/wikipedia/commons/thumb/2/25/African_Wild_Cat.JPG/480px-African_Wild_Cat.JPG"},
+    {n:"Chat Pêcheur",e:"🐱",l:"Prionailurus viverrinus",c:"terrestre",t:0.8,p:12,f:55,img:"https://upload.wikimedia.org/wikipedia/commons/thumb/4/48/Fishing_cat_-_Prionailurus_viverrinus.jpg/480px-Fishing_cat_-_Prionailurus_viverrinus.jpg"},
+    {n:"Panthère des Neiges",e:"🐆",l:"Panthera uncia",c:"terrestre",t:2.1,p:55,f:82,img:"https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Snow_leopard.jpg/480px-Snow_leopard.jpg"},
+    {n:"Léopard du Couchant",e:"🐆",l:"Neofelis nebulosa",c:"terrestre",t:1.1,p:23,f:72,img:"https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Clouded_leopard_2.jpg/480px-Clouded_leopard_2.jpg"},
+    {n:"Guépard du Roi",e:"🐱",l:"Acinonyx jubatus var.",c:"terrestre",t:1.4,p:65,f:80,img:"https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/TheCheetah.jpg/480px-TheCheetah.jpg"},
+  ]},
+  canidae:{animals:[
+    {n:"Loup Gris",e:"🐺",l:"Canis lupus",c:"terrestre",t:1.5,p:50,f:70,img:"https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Kolm%C3%A5rden_Wolf.jpg/480px-Kolm%C3%A5rden_Wolf.jpg"},
+    {n:"Renard Roux",e:"🦊",l:"Vulpes vulpes",c:"terrestre",t:0.7,p:6,f:35,img:"https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Vulpes_vulpes_ssp_fulvus.jpg/480px-Vulpes_vulpes_ssp_fulvus.jpg"},
+    {n:"Fennec",e:"🦊",l:"Vulpes zerda",c:"terrestre",t:0.4,p:1.5,f:22,img:"https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Fennec_Fox_-_Houston_Zoo.jpg/480px-Fennec_Fox_-_Houston_Zoo.jpg"},
+    {n:"Coyote",e:"🐺",l:"Canis latrans",c:"terrestre",t:1.2,p:14,f:50,img:"https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Coyote_portrait.jpg/480px-Coyote_portrait.jpg"},
+    {n:"Chacal Doré",e:"🐺",l:"Canis aureus",c:"terrestre",t:1,p:15,f:45,img:"https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Jackle.jpg/480px-Jackle.jpg"},
+    {n:"Dhole",e:"🐺",l:"Cuon alpinus",c:"terrestre",t:1,p:17,f:55,img:"https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/Dhole_%28Cuon_alpinus%29.jpg/480px-Dhole_%28Cuon_alpinus%29.jpg"},
+    {n:"Lycaon",e:"🐕",l:"Lycaon pictus",c:"terrestre",t:1.3,p:30,f:72,img:"https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/African-Wild-Dog.jpg/480px-African-Wild-Dog.jpg"},
+    {n:"Renard Arctique",e:"🦊",l:"Vulpes lagopus",c:"terrestre",t:0.65,p:3.5,f:30,img:"https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/Arctic_Fox_in_November_%288576191186%29.jpg/480px-Arctic_Fox_in_November_%288576191186%29.jpg"},
+    {n:"Renard Gris",e:"🦊",l:"Urocyon cinereoargenteus",c:"terrestre",t:0.6,p:4,f:32,img:"https://upload.wikimedia.org/wikipedia/commons/thumb/f/f0/Urocyon_cinereoargenteus.jpg/480px-Urocyon_cinereoargenteus.jpg"},
+    {n:"Maned Wolf",e:"🐺",l:"Chrysocyon brachyurus",c:"terrestre",t:1,p:23,f:48,img:"https://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/Maned_wolf_in_captivity.jpg/480px-Maned_wolf_in_captivity.jpg"},
+    {n:"Renard Oreillard",e:"🦊",l:"Otocyon megalotis",c:"terrestre",t:0.5,p:4,f:28,img:"https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Otocyon_megalotis.jpg/480px-Otocyon_megalotis.jpg"},
+    {n:"Dingo",e:"🐕",l:"Canis lupus dingo",c:"terrestre",t:1.2,p:20,f:48,img:"https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Dingo_Australia.jpg/480px-Dingo_Australia.jpg"},
+    {n:"Loup de l'Éthiopie",e:"🐺",l:"Canis simensis",c:"terrestre",t:1,p:16,f:60,img:"https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Ethiopian_wolf.jpg/480px-Ethiopian_wolf.jpg"},
+    {n:"Renard Corsac",e:"🦊",l:"Vulpes corsac",c:"terrestre",t:0.6,p:3,f:30,img:"https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/Vulpes_corsac.jpg/480px-Vulpes_corsac.jpg"},
+    {n:"Sechuran Fox",e:"🦊",l:"Lycalopex sechurae",c:"terrestre",t:0.7,p:4,f:32,img:"https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Vulpes_vulpes_ssp_fulvus.jpg/480px-Vulpes_vulpes_ssp_fulvus.jpg"},
+  ]},
+  ursidae:{animals:[
+    {n:"Ours Polaire",e:"🐻‍❄️",l:"Ursus maritimus",c:"terrestre",t:2.5,p:500,f:91,img:"https://upload.wikimedia.org/wikipedia/commons/thumb/6/66/Polar_Bear_-_Alaska_%28cropped%29.jpg/480px-Polar_Bear_-_Alaska_%28cropped%29.jpg"},
+    {n:"Grizzly",e:"🐻",l:"Ursus arctos horribilis",c:"terrestre",t:2.4,p:360,f:89,img:"https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/2010-kodiak-bear-1.jpg/480px-2010-kodiak-bear-1.jpg"},
+    {n:"Ours Brun",e:"🐻",l:"Ursus arctos",c:"terrestre",t:2.2,p:300,f:86,img:"https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/2010-brown-bear.jpg/480px-2010-brown-bear.jpg"},
+    {n:"Panda Géant",e:"🐼",l:"Ailuropoda melanoleuca",c:"terrestre",t:1.5,p:125,f:50,img:"https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Grosser_Panda.JPG/480px-Grosser_Panda.JPG"},
+    {n:"Ours Noir Américain",e:"🐻",l:"Ursus americanus",c:"terrestre",t:1.8,p:270,f:78,img:"https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/2010_Black_bear.jpg/480px-2010_Black_bear.jpg"},
+    {n:"Ours à Lunettes",e:"🐻",l:"Tremarctos ornatus",c:"terrestre",t:1.7,p:175,f:72,img:"https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/Spectacled_Bear_%28Tremarctos_ornatus%29_%2814690459024%29.jpg/480px-Spectacled_Bear_%28Tremarctos_ornatus%29_%2814690459024%29.jpg"},
+    {n:"Ours Malais",e:"🐻",l:"Helarctos malayanus",c:"terrestre",t:1.4,p:65,f:68,img:"https://upload.wikimedia.org/wikipedia/commons/thumb/6/66/Sun_Bear_%28Helarctos_malayanus%29_%2814490746419%29.jpg/480px-Sun_Bear_%28Helarctos_malayanus%29_%2814490746419%29.jpg"},
+    {n:"Ours Lippu",e:"🐻",l:"Melursus ursinus",c:"terrestre",t:1.6,p:145,f:70,img:"https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Sloth_Bear_-_Ranthambhore.jpg/480px-Sloth_Bear_-_Ranthambhore.jpg"},
+    {n:"Ours de l'Himalaya",e:"🐻",l:"Ursus thibetanus",c:"terrestre",t:1.8,p:200,f:75,img:"https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Asian_Black_Bear.jpg/480px-Asian_Black_Bear.jpg"},
+  ]},
+  hominidae:{animals:[
+    {n:"Gorille des Montagnes",e:"🦍",l:"Gorilla beringei",c:"terrestre",t:1.8,p:220,f:88,img:"https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/Mountain_Gorilla_2.jpg/480px-Mountain_Gorilla_2.jpg"},
+    {n:"Gorille de Plaine",e:"🦍",l:"Gorilla gorilla",c:"terrestre",t:1.8,p:180,f:86,img:"https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/Gorilla_gorilla_gorilla%2C_group_%281%29.jpg/480px-Gorilla_gorilla_gorilla%2C_group_%281%29.jpg"},
+    {n:"Chimpanzé",e:"🐒",l:"Pan troglodytes",c:"terrestre",t:1.2,p:60,f:72,img:"https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/015_Chimpanzee_at_Kibale_forest_National_Park_Photo_by_Giles_Laurent.jpg/480px-015_Chimpanzee_at_Kibale_forest_National_Park_Photo_by_Giles_Laurent.jpg"},
+    {n:"Bonobo",e:"🐒",l:"Pan paniscus",c:"terrestre",t:1.1,p:45,f:68,img:"https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Bonobo_in_Congo.jpg/480px-Bonobo_in_Congo.jpg"},
+    {n:"Orang-Outan de Bornéo",e:"🦧",l:"Pongo pygmaeus",c:"terrestre",t:1.3,p:90,f:74,img:"https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/Orang_Utan%2C_Semenggok_Forest_Reserve%2C_Sarawak%2C_Borneo%2C_Malaysia.JPG/480px-Orang_Utan%2C_Semenggok_Forest_Reserve%2C_Sarawak%2C_Borneo%2C_Malaysia.JPG"},
+    {n:"Orang-Outan de Sumatra",e:"🦧",l:"Pongo abelii",c:"terrestre",t:1.4,p:80,f:72,img:"https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/Orang_Utan%2C_Semenggok_Forest_Reserve%2C_Sarawak%2C_Borneo%2C_Malaysia.JPG/480px-Orang_Utan%2C_Semenggok_Forest_Reserve%2C_Sarawak%2C_Borneo%2C_Malaysia.JPG"},
+    {n:"Gibbon à Mains Blanches",e:"🐒",l:"Hylobates lar",c:"terrestre",t:0.9,p:8,f:55,img:"https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Hylobates_lar_-_Kaeng_Krachan.jpg/480px-Hylobates_lar_-_Kaeng_Krachan.jpg"},
+    {n:"Siamang",e:"🐒",l:"Symphalangus syndactylus",c:"terrestre",t:0.9,p:12,f:58,img:"https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Siamang_%28Symphalangus_syndactylus%29_-_Ragunan.jpg/480px-Siamang_%28Symphalangus_syndactylus%29_-_Ragunan.jpg"},
+  ]},
+  mysticeti:{animals:[
+    {n:"Baleine Bleue",e:"🐋",l:"Balaenoptera musculus",c:"marin",t:30,p:150000,f:98,img:"https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/Anim1754_-_Flickr_-_NOAA_Photo_Library.jpg/480px-Anim1754_-_Flickr_-_NOAA_Photo_Library.jpg"},
+    {n:"Baleine à Bosse",e:"🐋",l:"Megaptera novaeangliae",c:"marin",t:16,p:36000,f:80,img:"https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Humpback_Whale_underwater_shot.jpg/480px-Humpback_Whale_underwater_shot.jpg"},
+    {n:"Baleine de Minke",e:"🐋",l:"Balaenoptera acutorostrata",c:"marin",t:8,p:10000,f:65,img:"https://upload.wikimedia.org/wikipedia/commons/thumb/b/bf/Minke_whale.jpg/480px-Minke_whale.jpg"},
+    {n:"Rorqual Commun",e:"🐋",l:"Balaenoptera physalus",c:"marin",t:24,p:74000,f:88,img:"https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Balaenoptera_physalus_-_NOAA.jpg/480px-Balaenoptera_physalus_-_NOAA.jpg"},
+    {n:"Baleine Franche Boréale",e:"🐋",l:"Eubalaena glacialis",c:"marin",t:18,p:100000,f:75,img:"https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/Right_whale_-_NOAA.jpg/480px-Right_whale_-_NOAA.jpg"},
+    {n:"Baleine Grise",e:"🐋",l:"Eschrichtius robustus",c:"marin",t:15,p:36000,f:72,img:"https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/GrayWhale_NPS.jpg/480px-GrayWhale_NPS.jpg"},
+    {n:"Baleine du Groenland",e:"🐋",l:"Balaena mysticetus",c:"marin",t:18,p:100000,f:78,img:"https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/Bowhead_Whale_Sept_2005.jpg/480px-Bowhead_Whale_Sept_2005.jpg"},
+    {n:"Petit Rorqual",e:"🐋",l:"Balaenoptera bonaerensis",c:"marin",t:9,p:9000,f:62,img:"https://upload.wikimedia.org/wikipedia/commons/thumb/b/bf/Minke_whale.jpg/480px-Minke_whale.jpg"},
+  ]},
+  odontoceti:{animals:[
+    {n:"Orque",e:"🐳",l:"Orcinus orca",c:"marin",t:8,p:6000,f:96,img:"https://upload.wikimedia.org/wikipedia/commons/thumb/3/37/Killerwhales_jumping.jpg/480px-Killerwhales_jumping.jpg"},
+    {n:"Dauphin Commun",e:"🐬",l:"Delphinus delphis",c:"marin",t:2.4,p:75,f:60,img:"https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/Tursiops_truncatus_01.jpg/480px-Tursiops_truncatus_01.jpg"},
+    {n:"Cachalot",e:"🐋",l:"Physeter macrocephalus",c:"marin",t:20,p:57000,f:92,img:"https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/Sperm_whale_size.svg/480px-Sperm_whale_size.svg.png"},
+    {n:"Narval",e:"🦐",l:"Monodon monoceros",c:"marin",t:5,p:1600,f:68,img:"https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Narwal_2.jpg/480px-Narwal_2.jpg"},
+    {n:"Béluga",e:"🐋",l:"Delphinapterus leucas",c:"marin",t:5,p:1500,f:72,img:"https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Belugaschool.jpg/480px-Belugaschool.jpg"},
+    {n:"Grand Dauphin",e:"🐬",l:"Tursiops truncatus",c:"marin",t:3,p:300,f:65,img:"https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/Tursiops_truncatus_01.jpg/480px-Tursiops_truncatus_01.jpg"},
+    {n:"Dauphin de Risso",e:"🐬",l:"Grampus griseus",c:"marin",t:4,p:500,f:65,img:"https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Risso%27s_Dolphin.jpg/480px-Risso%27s_Dolphin.jpg"},
+    {n:"Marsouin Commun",e:"🐬",l:"Phocoena phocoena",c:"marin",t:1.8,p:60,f:48,img:"https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/Harbour_porpoise.jpg/480px-Harbour_porpoise.jpg"},
+    {n:"Orque Pygmée",e:"🐳",l:"Feresa attenuata",c:"marin",t:2.7,p:225,f:70,img:"https://upload.wikimedia.org/wikipedia/commons/thumb/3/37/Killerwhales_jumping.jpg/480px-Killerwhales_jumping.jpg"},
+    {n:"Dauphin Spinner",e:"🐬",l:"Stenella longirostris",c:"marin",t:2,p:80,f:58,img:"https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/Tursiops_truncatus_01.jpg/480px-Tursiops_truncatus_01.jpg"},
+  ]},
+  lamnidae:{animals:[
+    {n:"Grand Requin Blanc",e:"🦈",l:"Carcharodon carcharias",c:"marin",t:6,p:1100,f:93,img:"https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/White_shark.jpg/480px-White_shark.jpg"},
+    {n:"Requin Taupe",e:"🦈",l:"Lamna nasus",c:"marin",t:3.5,p:500,f:78,img:"https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/White_shark.jpg/480px-White_shark.jpg"},
+    {n:"Requin Mako",e:"🦈",l:"Isurus oxyrinchus",c:"marin",t:4.5,p:570,f:85,img:"https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/Shortfin_mako_shark_-_noaa.jpg/480px-Shortfin_mako_shark_-_noaa.jpg"},
+    {n:"Requin Renard",e:"🦈",l:"Alopias vulpinus",c:"marin",t:5.7,p:230,f:72,img:"https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/White_shark.jpg/480px-White_shark.jpg"},
+  ]},
+  carcharhinidae:{animals:[
+    {n:"Requin Tigre",e:"🦈",l:"Galeocerdo cuvier",c:"marin",t:5.5,p:635,f:88,img:"https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/Tiger_shark.jpg/480px-Tiger_shark.jpg"},
+    {n:"Requin Bouledogue",e:"🦈",l:"Carcharhinus leucas",c:"marin",t:3.5,p:315,f:85,img:"https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Bull_shark.jpg/480px-Bull_shark.jpg"},
+    {n:"Requin Bleu",e:"🦈",l:"Prionace glauca",c:"marin",t:3.8,p:205,f:75,img:"https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/White_shark.jpg/480px-White_shark.jpg"},
+    {n:"Requin Océanique",e:"🦈",l:"Carcharhinus longimanus",c:"marin",t:3.5,p:170,f:78,img:"https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/White_shark.jpg/480px-White_shark.jpg"},
+    {n:"Requin Soyeux",e:"🦈",l:"Carcharhinus falciformis",c:"marin",t:3.5,p:340,f:76,img:"https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/White_shark.jpg/480px-White_shark.jpg"},
+  ]},
+  nymphalidae:{animals:[
+    {n:"Papillon Monarque",e:"🦋",l:"Danaus plexippus",c:"insecte",t:0.12,p:0.0003,f:5,img:"https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/Monarch_Butterfly_Danaus_plexippus.jpg/480px-Monarch_Butterfly_Danaus_plexippus.jpg"},
+    {n:"Papillon Paon",e:"🦋",l:"Aglais io",c:"insecte",t:0.065,p:0.00015,f:6,img:"https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/Aglais_io_on_Cirsium_arvense.jpg/480px-Aglais_io_on_Cirsium_arvense.jpg"},
+    {n:"Papillon Morpho Bleu",e:"🦋",l:"Morpho peleides",c:"insecte",t:0.13,p:0.0004,f:7,img:"https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Morpho_peleides_limpida.JPG/480px-Morpho_peleides_limpida.JPG"},
+    {n:"Demi-Deuil",e:"🦋",l:"Melanargia galathea",c:"insecte",t:0.05,p:0.0001,f:4,img:"https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/Melanargia_galathea_Luc_Viatour.jpg/480px-Melanargia_galathea_Luc_Viatour.jpg"},
+    {n:"Vulcain",e:"🦋",l:"Vanessa atalanta",c:"insecte",t:0.07,p:0.00015,f:5,img:"https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/Vanessa_atalanta_-_upperside.jpg/480px-Vanessa_atalanta_-_upperside.jpg"},
+    {n:"Robert le Diable",e:"🦋",l:"Polygonia c-album",c:"insecte",t:0.05,p:0.0001,f:4,img:"https://upload.wikimedia.org/wikipedia/commons/thumb/3/32/Polygonia_c-album_MHNT.jpg/480px-Polygonia_c-album_MHNT.jpg"},
+  ]},
+  formicidae:{animals:[
+    {n:"Fourmi Rousse",e:"🐜",l:"Formica rufa",c:"insecte",t:0.003,p:0.000001,f:25,img:"https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Formicarius_Fire_Ant_01.jpg/480px-Formicarius_Fire_Ant_01.jpg"},
+    {n:"Fourmi Balle de Fusil",e:"🐜",l:"Paraponera clavata",c:"insecte",t:0.028,p:0.000002,f:35,img:"https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Paraponera_clavata.jpg/480px-Paraponera_clavata.jpg"},
+    {n:"Fourmi Légionnaire",e:"🐜",l:"Eciton burchellii",c:"insecte",t:0.012,p:0.0000015,f:30,img:"https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Formicarius_Fire_Ant_01.jpg/480px-Formicarius_Fire_Ant_01.jpg"},
+    {n:"Fourmi Coupe-Feuilles",e:"🐜",l:"Atta cephalotes",c:"insecte",t:0.016,p:0.000002,f:28,img:"https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Formicarius_Fire_Ant_01.jpg/480px-Formicarius_Fire_Ant_01.jpg"},
+    {n:"Fourmi de Feu",e:"🐜",l:"Solenopsis invicta",c:"insecte",t:0.005,p:0.0000003,f:22,img:"https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Formicarius_Fire_Ant_01.jpg/480px-Formicarius_Fire_Ant_01.jpg"},
+    {n:"Fourmi Tisserande",e:"🐜",l:"Oecophylla smaragdina",c:"insecte",t:0.008,p:0.0000008,f:20,img:"https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Formicarius_Fire_Ant_01.jpg/480px-Formicarius_Fire_Ant_01.jpg"},
+    {n:"Fourmi Charpentière",e:"🐜",l:"Camponotus pennsylvanicus",c:"insecte",t:0.018,p:0.000001,f:18,img:"https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Formicarius_Fire_Ant_01.jpg/480px-Formicarius_Fire_Ant_01.jpg"},
+    {n:"Fourmi Bouledogue",e:"🐜",l:"Myrmecia gulosa",c:"insecte",t:0.02,p:0.0000015,f:32,img:"https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Formicarius_Fire_Ant_01.jpg/480px-Formicarius_Fire_Ant_01.jpg"},
+  ]},
+  apidae:{animals:[
+    {n:"Abeille à Miel",e:"🐝",l:"Apis mellifera",c:"insecte",t:0.015,p:0.0001,f:20,img:"https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/Apis_mellifera_Western_honey_bee.jpg/480px-Apis_mellifera_Western_honey_bee.jpg"},
+    {n:"Bourdon des Prés",e:"🐝",l:"Bombus terrestris",c:"insecte",t:0.022,p:0.0008,f:18,img:"https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Bombus_terrestris_Bumblebee.jpg/480px-Bombus_terrestris_Bumblebee.jpg"},
+    {n:"Abeille Charpentière",e:"🐝",l:"Xylocopa violacea",c:"insecte",t:0.025,p:0.0012,f:22,img:"https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/Apis_mellifera_Western_honey_bee.jpg/480px-Apis_mellifera_Western_honey_bee.jpg"},
+    {n:"Abeille Géante",e:"🐝",l:"Apis dorsata",c:"insecte",t:0.03,p:0.0003,f:25,img:"https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/Apis_mellifera_Western_honey_bee.jpg/480px-Apis_mellifera_Western_honey_bee.jpg"},
+    {n:"Abeille sans Aiguillon",e:"🐝",l:"Meliponula bocandei",c:"insecte",t:0.005,p:0.00004,f:12,img:"https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/Apis_mellifera_Western_honey_bee.jpg/480px-Apis_mellifera_Western_honey_bee.jpg"},
+  ]},
+  octopodidae:{animals:[
+    {n:"Pieuvre Commune",e:"🐙",l:"Octopus vulgaris",c:"marin",t:1.3,p:15,f:62,img:"https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Day_Octopus_Taken_-_Maldives.jpg/480px-Day_Octopus_Taken_-_Maldives.jpg"},
+    {n:"Pieuvre Géante du Pacifique",e:"🐙",l:"Enteroctopus dofleini",c:"marin",t:4.3,p:71,f:75,img:"https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/Octopus2.jpg/480px-Octopus2.jpg"},
+    {n:"Poulpe Bleu Annelé",e:"🐙",l:"Hapalochlaena lunulata",c:"marin",t:0.2,p:0.09,f:50,img:"https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Hapalochlaena_lunulata2.jpg/480px-Hapalochlaena_lunulata2.jpg"},
+    {n:"Pieuvre Mimic",e:"🐙",l:"Thaumoctopus mimicus",c:"marin",t:0.6,p:0.5,f:45,img:"https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Day_Octopus_Taken_-_Maldives.jpg/480px-Day_Octopus_Taken_-_Maldives.jpg"},
+    {n:"Pieuvre à Long Bras",e:"🐙",l:"Octopus defilippi",c:"marin",t:0.8,p:0.3,f:38,img:"https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Day_Octopus_Taken_-_Maldives.jpg/480px-Day_Octopus_Taken_-_Maldives.jpg"},
+  ]},
+  elapidae:{animals:[
+    {n:"Cobra Royal",e:"🐍",l:"Ophiophagus hannah",c:"terrestre",t:5.5,p:9,f:80,img:"https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/A_large_male_King_Cobra_%28Ophiophagus_hannah%29.jpg/480px-A_large_male_King_Cobra_%28Ophiophagus_hannah%29.jpg"},
+    {n:"Mamba Noir",e:"🐍",l:"Dendroaspis polylepis",c:"terrestre",t:4.5,p:1.6,f:78,img:"https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Dendroaspis_polylepis.jpg/480px-Dendroaspis_polylepis.jpg"},
+    {n:"Cobra Indien",e:"🐍",l:"Naja naja",c:"terrestre",t:2.2,p:2,f:70,img:"https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Naja_naja.jpg/480px-Naja_naja.jpg"},
+    {n:"Taipan Côtier",e:"🐍",l:"Oxyuranus scutellatus",c:"terrestre",t:2.5,p:3,f:82,img:"https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Oxyuranus_scutellatus_crop.jpg/480px-Oxyuranus_scutellatus_crop.jpg"},
+    {n:"Serpent Brun de l'Est",e:"🐍",l:"Pseudonaja textilis",c:"terrestre",t:2,p:1.5,f:75,img:"https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Dendroaspis_polylepis.jpg/480px-Dendroaspis_polylepis.jpg"},
+    {n:"Cobra Cracheur",e:"🐍",l:"Naja siamensis",c:"terrestre",t:1.6,p:1,f:65,img:"https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Naja_naja.jpg/480px-Naja_naja.jpg"},
+    {n:"Mamba Vert",e:"🐍",l:"Dendroaspis angusticeps",c:"terrestre",t:2.5,p:0.8,f:70,img:"https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Dendroaspis_polylepis.jpg/480px-Dendroaspis_polylepis.jpg"},
+    {n:"Serpent Tigre",e:"🐍",l:"Notechis scutatus",c:"terrestre",t:1.5,p:0.9,f:72,img:"https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Dendroaspis_polylepis.jpg/480px-Dendroaspis_polylepis.jpg"},
+  ]},
+};
+
+// ═══════════════════════════════════════════════════════
+// GENERATE ANIMALS — fills families with AI-style generated data
+// Uses seeded random for consistency
+// ═══════════════════════════════════════════════════════
+
+// Base seed animals from known families
+const BASE_ANIMALS = [];
+Object.values(FAMILIES).forEach(fam => {
+  fam.animals.forEach(a => {
+    if(!a.i) a.i = {Habitat:"Variable",Longévité:"10 ans",Vitesse:"30 km/h",Régime:"Omnivore",Statut:"Non évalué"};
+    if(!a.co) a.co = {Force:[a.f,40],Vitesse:[30,45],Longévité:[10,79],Taille:[a.t,1.75]};
+    BASE_ANIMALS.push(a);
+  });
+});
+
+// ── GENERATED ANIMAL POOL ──────────────────────────────
+// 10,000+ animals generated with names, structured data
+function seededRand(seed){let x=Math.sin(seed)*10000;return x-Math.floor(x);}
+
+const CAT_TERRESTRES=[
+  ["Addax","🦌","Addax nasomaculatus","terrestre"],["Agouti","🐾","Dasyprocta leporina","terrestre"],["Aï","🦥","Bradypus tridactylus","terrestre"],["Akodonte","🐭","Akodon cursor","terrestre"],["Albatros Hurleur","🦅","Diomedea exulans","terrestre"],["Alcyon","🐦","Alcedo atthis","terrestre"],["Alligator d'Amérique","🐊","Alligator mississippiensis","terrestre"],["Alpaga","🦙","Vicugna pacos","terrestre"],["Ânesse Sauvage","🐴","Equus africanus","terrestre"],["Antilope Cervicapre","🦌","Antilope cervicapra","terrestre"],["Antilope Noire","🦌","Hippotragus niger","terrestre"],["Ara Hyacinthe","🦜","Anodorhynchus hyacinthinus","terrestre"],["Argali","🐑","Ovis ammon","terrestre"],["Atèle de Geoffroy","🐒","Ateles geoffroyi","terrestre"],["Aye-Aye","🐾","Daubentonia madagascariensis","terrestre"],["Babouin Olive","🐒","Papio anubis","terrestre"],["Babouin Chacma","🐒","Papio ursinus","terrestre"],["Babouin Hamadryas","🐒","Papio hamadryas","terrestre"],["Balaou","🐟","Strongylura marina","terrestre"],["Banteng","🐂","Bos javanicus","terrestre"],["Belette","🦡","Mustela nivalis","terrestre"],["Bichon Frisé","🐕","Canis lupus familiaris","terrestre"],["Bighorn","🐑","Ovis canadensis","terrestre"],["Binturong","🐾","Arctictis binturong","terrestre"],["Blaireau Européen","🦡","Meles meles","terrestre"],["Boa Constrictor","🐍","Boa constrictor","terrestre"],["Bobcat","🐱","Lynx rufus","terrestre"],["Bonnet Chinois","🐒","Macaca radiata","terrestre"],["Bongo","🦌","Tragelaphus eurycerus","terrestre"],["Bouquetin des Alpes","🐑","Capra ibex","terrestre"],["Brebis Sauvage","🐑","Ovis orientalis","terrestre"],["Brolga","🦩","Antigone rubicunda","terrestre"],["Brocket Gris","🦌","Mazama gouazoubira","terrestre"],["Buffle d'Eau","🐂","Bubalus bubalis","terrestre"],["Bulbul","🐦","Pycnonotus jocosus","terrestre"],["Cabiai","🐾","Hydrochoerus hydrochaeris","terrestre"],["Calao à Casque","🐦","Rhinoplax vigil","terrestre"],["Caméléon de Jackson","🦎","Trioceros jacksonii","terrestre"],["Caméléon Voilé","🦎","Chamaeleo calyptratus","terrestre"],["Canard Colvert","🦆","Anas platyrhynchos","terrestre"],["Canard Pilet","🦆","Anas acuta","terrestre"],["Capucin Brun","🐒","Cebus apella","terrestre"],["Caracara Huppé","🦅","Caracara plancus","terrestre"],["Caribou","🦌","Rangifer tarandus","terrestre"],["Casoar de Nouvelle-Guinée","🦃","Casuarius bennetti","terrestre"],["Castor d'Europe","🦫","Castor fiber","terrestre"],["Castor du Canada","🦫","Castor canadensis","terrestre"],["Cerf à Queue Blanche","🦌","Odocoileus virginianus","terrestre"],["Cerf de Virginie","🦌","Odocoileus virginianus","terrestre"],["Cerf Muntjac","🦌","Muntiacus muntjak","terrestre"],["Cerf Sika","🦌","Cervus nippon","terrestre"],["Chacal à Flancs Rayés","🐺","Lupulella adusta","terrestre"],["Chat à Pieds Noirs","🐱","Felis nigripes","terrestre"],["Chat des Pampas","🐱","Leopardus pajeros","terrestre"],["Chat Doré Africain","🐱","Caracal aurata","terrestre"],["Chat Léopard","🐱","Prionailurus bengalensis","terrestre"],["Cheval de Prjevalski","🐴","Equus ferus przewalskii","terrestre"],["Chimpanzé de Gombe","🐒","Pan troglodytes schweinfurthii","terrestre"],["Civette Africaine","🦡","Civettictis civetta","terrestre"],["Civette des Palmiers","🦡","Paradoxurus hermaphroditus","terrestre"],["Cobe à Croissant","🦌","Kobus ellipsiprymnus","terrestre"],["Cobra de Forêt","🐍","Naja melanoleuca","terrestre"],["Colocolo","🐱","Leopardus colocolo","terrestre"],["Colombe Diamant","🕊️","Geopelia cuneata","terrestre"],["Condor de Californie","🦅","Gymnogyps californianus","terrestre"],["Coucal","🐦","Centropus sinensis","terrestre"],["Coulicou à Bec Jaune","🐦","Coccyzus americanus","terrestre"],["Coypu","🦫","Myocastor coypus","terrestre"],["Coypou","🦫","Myocastor coypus","terrestre"],["Crocodile de Johnston","🐊","Crocodylus johnstoni","terrestre"],["Crocodile Nain","🐊","Osteolaemus tetraspis","terrestre"],["Crocodile du Siam","🐊","Crocodylus siamensis","terrestre"],["Daim Commun","🦌","Dama dama","terrestre"],["Daman des Rochers","🐾","Procavia capensis","terrestre"],["Dingo Australien","🐕","Canis lupus dingo","terrestre"],["Discoglosse Peint","🐸","Discoglossus pictus","terrestre"],["Douroucouli","🐒","Aotus trivirgatus","terrestre"],["Dromadaire","🐪","Camelus dromedarius","terrestre"],["Écureuil de Corée","🐿️","Eutamias sibiricus","terrestre"],["Écureuil Géant de Malaisie","🐿️","Ratufa bicolor","terrestre"],["Écureuil Gris","🐿️","Sciurus carolinensis","terrestre"],["Écureuil Palmiste","🐿️","Funambulus palmarum","terrestre"],["Élan d'Amérique","🦌","Alces alces americanus","terrestre"],["Éléphant de Forêt","🐘","Loxodonta cyclotis","terrestre"],["Émeu","🦃","Dromaius novaehollandiae","terrestre"],["Épervier d'Europe","🦅","Accipiter nisus","terrestre"],["Étourneau Sansonnet","🐦","Sturnus vulgaris","terrestre"],["Eyra","🐱","Herpailurus yagouaroundi","terrestre"],["Faucon Gerfaut","🦅","Falco rusticolus","terrestre"],["Faucon Sacré","🦅","Falco cherrug","terrestre"],["Fouine","🦡","Martes foina","terrestre"],["Fourgon","🐾","Cryptoprocta ferox","terrestre"],["Fous à Pieds Bleus","🐦","Sula nebouxii","terrestre"],["Foussa","🐾","Cryptoprocta ferox","terrestre"],["Gaur","🐂","Bos gaurus","terrestre"],["Gemsbok","🦌","Oryx gazella","terrestre"],["Genette Commune","🦡","Genetta genetta","terrestre"],["Gerbille de Mongolie","🐭","Meriones unguiculatus","terrestre"],["Gerboise à Longues Oreilles","🐭","Euchoreutes naso","terrestre"],["Gérenuk","🦌","Litocranius walleri","terrestre"],["Gibbon de Müller","🐒","Hylobates muelleri","terrestre"],["Glouton","🦡","Gulo gulo","terrestre"],["Goéland Argenté","🐦","Larus argentatus","terrestre"],["Grand Fourmilier","🐾","Myrmecophaga tridactyla","terrestre"],["Grand Koudou","🦌","Tragelaphus strepsiceros","terrestre"],["Grand Panda Rouge","🦝","Ailurus fulgens","terrestre"],["Grand Varan","🦎","Varanus niloticus","terrestre"],["Grue Demoiselle","🦩","Anthropoides virgo","terrestre"],["Grue du Japon","🦩","Grus japonensis","terrestre"],["Guanaco","🦙","Lama guanicoe","terrestre"],["Guib Harnaché","🦌","Tragelaphus scriptus","terrestre"],["Héron Cendré","🐦","Ardea cinerea","terrestre"],["Hippopotame Nain","🦛","Choeropsis liberiensis","terrestre"],["Huia","🐦","Heteralocha acutirostris","terrestre"],["Hyène Rayée","🐕","Hyaena hyaena","terrestre"],["Ibis Chauve","🐦","Geronticus eremita","terrestre"],["Ibis Rouge","🐦","Eudocimus ruber","terrestre"],["Iguane Marin","🦎","Amblyrhynchus cristatus","terrestre"],["Impala","🦌","Aepyceros melampus","terrestre"],["Isard","🦌","Rupicapra pyrenaica","terrestre"],["Jacana","🐦","Jacana jacana","terrestre"],["Jaguar de Floride","🐆","Panthera onca veracrucensis","terrestre"],["Jaseur Boréal","🐦","Bombycilla garrulus","terrestre"],["Jerboa à Grandes Oreilles","🐭","Euchoreutes naso","terrestre"],["Kinkajou","🦝","Potos flavus","terrestre"],["Kiwi Commun","🐾","Apteryx australis","terrestre"],["Komodo","🦎","Varanus komodoensis","terrestre"],["Lama","🦙","Lama glama","terrestre"],["Lamantin d'Afrique","🐾","Trichechus senegalensis","terrestre"],["Lemming de Norvège","🐭","Lemmus lemmus","terrestre"],["Lérot","🐭","Eliomys quercinus","terrestre"],["Lézard Agame","🦎","Agama agama","terrestre"],["Lézard à Collerette","🦎","Chlamydosaurus kingii","terrestre"],["Lézard Horned","🦎","Phrynosoma coronatum","terrestre"],["Lièvre Arctique","🐇","Lepus arcticus","terrestre"],["Lièvre d'Europe","🐇","Lepus europaeus","terrestre"],["Linsang Rayé","🦡","Prionodon linsang","terrestre"],["Lori des Moluques","🦜","Eos bornea","terrestre"],["Loup-Garou","🐺","Canis dirus","terrestre"],["Loutrine","🦦","Lontra canadensis","terrestre"],["Loutre d'Europe","🦦","Lutra lutra","terrestre"],["Loutre Géante","🦦","Pteronura brasiliensis","terrestre"],["Macaque Japonais","🐒","Macaca fuscata","terrestre"],["Macaque à Longue Queue","🐒","Macaca fascicularis","terrestre"],["Macaque Rhésus","🐒","Macaca mulatta","terrestre"],["Mandrill","🐒","Mandrillus sphinx","terrestre"],["Mangouste Naine","🦡","Helogale parvula","terrestre"],["Manul","🐱","Otocolobus manul","terrestre"],["Marmotte des Alpes","🐿️","Marmota marmota","terrestre"],["Marte des Pins","🦡","Martes martes","terrestre"],["Meerkat","🦡","Suricata suricatta","terrestre"],["Mégaptère","🐋","Megaptera novaeangliae","terrestre"],["Microraptor","🦎","Microraptor gui","terrestre"],["Mouffette à Dos Blanc","🦡","Conepatus leuconotus","terrestre"],["Mouffette Rayée","🦡","Mephitis mephitis","terrestre"],["Mouton de Barbarie","🐑","Ammotragus lervia","terrestre"],["Musaraigne des Alpes","🐭","Sorex alpinus","terrestre"],["Musaraigne Étrusque","🐭","Suncus etruscus","terrestre"],["Mustang","🐴","Equus ferus caballus","terrestre"],["Myrmécophage Soyeux","🐾","Cyclopes didactylus","terrestre"],["Nandou","🦃","Rhea americana","terrestre"],["Nasique","🐒","Nasalis larvatus","terrestre"],["Noctule Commune","🦇","Nyctalus noctula","terrestre"],["Numbat","🐾","Myrmecobius fasciatus","terrestre"],["Nyala","🦌","Tragelaphus angasii","terrestre"],["Oie des Neiges","🦆","Anser caerulescens","terrestre"],["Oiseau Secrétaire","🦅","Sagittarius serpentarius","terrestre"],["Okapi Pygmée","🦌","Okapia johnstoni","terrestre"],["Opossum de Virginie","🐾","Didelphis virginiana","terrestre"],["Ouistiti Pygmée","🐒","Cebuella pygmaea","terrestre"],["Ovibos","🐂","Ovibos moschatus","terrestre"],["Pacarana","🐾","Dinomys branickii","terrestre"],["Paca à Crête","🐾","Cuniculus taczanowskii","terrestre"],["Pangolin à Écailles Géantes","🐾","Smutsia gigantea","terrestre"],["Pangolin de Belanger","🐾","Manis javanica","terrestre"],["Pécari à Collier","🐗","Pecari tajacu","terrestre"],["Pélican Blanc","🐦","Pelecanus onocrotalus","terrestre"],["Perche Commune","🐟","Perca fluviatilis","terrestre"],["Perroquet Kakapo","🦜","Strigops habroptilus","terrestre"],["Petit Koudou","🦌","Tragelaphus imberbis","terrestre"],["Petit Lamantin","🐾","Trichechus manatus","terrestre"],["Phalanger Renard","🐾","Trichosurus vulpecula","terrestre"],["Pica à Collier","🐿️","Ochotona collaris","terrestre"],["Piranha Noir","🐟","Serrasalmus rhombeus","terrestre"],["Plongeon Imbrin","🐦","Gavia immer","terrestre"],["Porcépic d'Amérique","🐾","Erethizon dorsatum","terrestre"],["Porc-épic Africain","🐾","Hystrix cristata","terrestre"],["Potto Commun","🐾","Perodicticus potto","terrestre"],["Pronghorn","🦌","Antilocapra americana","terrestre"],["Putois d'Europe","🦡","Mustela putorius","terrestre"],["Quoll Tacheté","🐾","Dasyurus viverrinus","terrestre"],["Rapace Balbuzard","🦅","Pandion haliaetus","terrestre"],["Ratel","🦡","Mellivora capensis","terrestre"],["Raton Laveur du Mexique","🦝","Procyon cancrivorus","terrestre"],["Réal Cerf","🦌","Cervus elaphus hispanicus","terrestre"],["Renne","🦌","Rangifer tarandus","terrestre"],["Reptile Girdle","🦎","Cordylus giganteus","terrestre"],["Rhinocéros de Sumatra","🦏","Dicerorhinus sumatrensis","terrestre"],["Rhinocéros Laineux","🦏","Coelodonta antiquitatis","terrestre"],["Rougegorge","🐦","Erithacus rubecula","terrestre"],["Sanglier Géant","🐗","Sus celebensis","terrestre"],["Sapajou Noir","🐒","Cebus apella","terrestre"],["Saïga","🦌","Saiga tatarica","terrestre"],["Salamandre Tachetée","🐸","Salamandra salamandra","terrestre"],["Serin Cini","🐦","Serinus serinus","terrestre"],["Singe Hurleur","🐒","Alouatta palliata","terrestre"],["Singe Proboscis","🐒","Nasalis larvatus","terrestre"],["Singe Araignée","🐒","Ateles geoffroyi","terrestre"],["Singe Laineux","🐒","Lagothrix lagotricha","terrestre"],["Sitatunga","🦌","Tragelaphus spekii","terrestre"],["Sitelle Torchepot","🐦","Sitta europaea","terrestre"],["Skunk","🦡","Mephitis mephitis","terrestre"],["Solénodon de Cuba","🐾","Solenodon cubanus","terrestre"],["Spéléomante","🐸","Speleomantes strinatii","terrestre"],["Springbok","🦌","Antidorcas marsupialis","terrestre"],["Suricates","🦡","Suricata suricatta","terrestre"],["Sus scrofa","🐗","Sus scrofa","terrestre"],["Tapir Malais","🐾","Tapirus indicus","terrestre"],["Tatou à Neuf Bandes","🐾","Dasypus novemcinctus","terrestre"],["Thomys Talpide","🐭","Thomomys talpoides","terrestre"],["Thylacine","🐾","Thylacinus cynocephalus","terrestre"],["Toucan Ariel","🦜","Ramphastos vitellinus","terrestre"],["Urubu à Tête Rouge","🦅","Cathartes aura","terrestre"],["Vampire Commun","🦇","Desmodus rotundus","terrestre"],["Varan de Komodo","🦎","Varanus komodoensis","terrestre"],["Varan de Timor","🦎","Varanus timorensis","terrestre"],["Vautour Fauve","🦅","Gyps fulvus","terrestre"],["Vautour Percnoptère","🦅","Neophron percnopterus","terrestre"],["Vison d'Amérique","🦡","Neovison vison","terrestre"],["Wallaby de Bennett","🦘","Macropus rufogriseus","terrestre"],["Wapiti","🦌","Cervus canadensis","terrestre"],["Warthog","🐗","Phacochoerus africanus","terrestre"],["Yapock","🐾","Chironectes minimus","terrestre"],["Yack","🐂","Bos grunniens","terrestre"],["Zibeline","🦡","Martes zibellina","terrestre"],["Zorille","🦡","Ictonyx striatus","terrestre"]
+];
+
+const CAT_MARINS=[
+  ["Aiguillat Commun","🦈","Squalus acanthias","marin"],["Anguille Électrique","🐟","Electrophorus electricus","marin"],["Anguille Marbrée","🐟","Anguilla marmorata","marin"],["Anémone de Mer","🌸","Actinia equina","marin"],["Araignée de Mer","🦀","Maja squinado","marin"],["Architeuthis","🦑","Architeuthis dux","marin"],["Baleine à Bec","🐋","Mesoplodon densirostris","marin"],["Baleine Bleue Pygmée","🐋","Balaenoptera musculus brevicauda","marin"],["Barracuda","🐟","Sphyraena barracuda","marin"],["Belouga","🐋","Delphinapterus leucas","marin"],["Béryx","🐟","Beryx decadactylus","marin"],["Blennies","🐟","Salarias fasciatus","marin"],["Brachioure","🦀","Portunus puber","marin"],["Branchiopode","🦐","Artemia salina","marin"],["Brochet de Mer","🐟","Tylosurus crocodilus","marin"],["Calmar Géant de Darwin","🦑","Mesonychoteuthis hamiltoni","marin"],["Callionyme","🐟","Callionymus lyra","marin"],["Canif de Mer","🐚","Ensis ensis","marin"],["Carangue Limon","🐟","Lichia amia","marin"],["Céphaloptère","🐟","Mobula hypostoma","marin"],["Chaetognathe","🦐","Sagitta elegans","marin"],["Chimère Arctique","🐟","Chimaera monstrosa","marin"],["Cichlidé du Lac Victoria","🐟","Haplochromis nyererei","marin"],["Cobia","🐟","Rachycentron canadum","marin"],["Cobite de Rivière","🐟","Cobitis taenia","marin"],["Collier de Corail","🪸","Millepora alcicornis","marin"],["Comète de Mer","⭐","Astropecten irregularis","marin"],["Concombre de Mer","🐾","Holothuria tubulosa","marin"],["Congre Commun","🐍","Conger conger","marin"],["Corail Cerveau","🪸","Diploria strigosa","marin"],["Corail de Feu","🪸","Millepora complanata","marin"],["Corbine","🐟","Sciaena umbra","marin"],["Corégone","🐟","Coregonus lavaretus","marin"],["Cormoran Huppé","🐦","Phalacrocorax aristotelis","marin"],["Coutre","🐚","Pecten maximus","marin"],["Crabe des Neiges","🦀","Chionoecetes opilio","marin"],["Crabe Fantôme","🦀","Ocypode cursor","marin"],["Crabe Porteur","🦀","Dromia personata","marin"],["Crabe Violoniste","🦀","Uca pugilator","marin"],["Crapaud de Mer","🐟","Lophius piscatorius","marin"],["Crevette de Montague","🦐","Palaemon montagui","marin"],["Crevette Nettoyeuse","🦐","Lysmata amboinensis","marin"],["Crevette Pistol","🦐","Alpheus randalli","marin"],["Crevette Préhistorique","🦐","Triops longicaudatus","marin"],["Crochet d'Or","🐟","Chrysophrys auratus","marin"],["Ctenophore","🪼","Mnemiopsis leidyi","marin"],["Cymbale","🐚","Cymbiola nobilis","marin"],["Dace","🐟","Leuciscus leuciscus","marin"],["Daguet de Mer","🐟","Centrophorus granulosus","marin"],["Dauphin d'Hector","🐬","Cephalorhynchus hectori","marin"],["Dauphin Tacheté","🐬","Stenella frontalis","marin"],["Dauphin à Flancs Blancs","🐬","Lagenorhynchus acutus","marin"],["Dugong","🐾","Dugong dugon","marin"],["Échinoderme Ophiure","⭐","Ophioderma longicauda","marin"],["Esturgeon Commun","🐟","Acipenser sturio","marin"],["Esturgeon de Sibérie","🐟","Acipenser baerii","marin"],["Flétan Atlantique","🐟","Hippoglossus hippoglossus","marin"],["Gobie Géant","🐟","Gobiomorus dormitor","marin"],["Goéland Marin","🐦","Larus marinus","marin"],["Grande Nacre","🐚","Pinna nobilis","marin"],["Gurnard Rouge","🐟","Chelidonichthys cuculus","marin"],["Hippocampe Pot-Ventre","🐠","Hippocampus abdominalis","marin"],["Holothurie Royale","🐾","Thelenota ananas","marin"],["Hydre de Mer","🪼","Hydra vulgaris","marin"],["Isopode Géant","🦀","Bathynomus giganteus","marin"],["Jocaste","🐚","Jocaste lucina","marin"],["Labrador","🦭","Phoca vitulina","marin"],["Lamantin Américain","🐾","Trichechus manatus","marin"],["Lamproie de Rivière","🐍","Lampetra fluviatilis","marin"],["Langouste Verte","🦞","Panulirus versicolor","marin"],["Limule","🦀","Limulus polyphemus","marin"],["Lophie","🐟","Lophius americanus","marin"],["Lotte","🐟","Molva molva","marin"],["Macareux Moine","🐦","Fratercula arctica","marin"],["Macroure","🦐","Aristaeomorpha foliacea","marin"],["Maquereau Espagnol","🐟","Scomberomorus maculatus","marin"],["Megalodon","🦈","Otodus megalodon","marin"],["Mérou Géant","🐟","Epinephelus itajara","marin"],["Mérou de Nassau","🐟","Epinephelus striatus","marin"],["Mirounga","🦭","Mirounga angustirostris","marin"],["Mollusque Cône","🐚","Conus geographus","marin"],["Murène Léopard","🐍","Enchelycore pardalis","marin"],["Nautile Ombilic","🐚","Nautilus pompilius","marin"],["Ophiure","⭐","Ophiura ophiura","marin"],["Ornithorynque","🐾","Ornithorhynchus anatinus","marin"],["Oursin Diadème","🦔","Diadema setosum","marin"],["Oursin Plat","🦔","Echinocardium cordatum","marin"],["Palourde Géante","🐚","Tridacna gigas","marin"],["Pangole de Mer","🐟","Hoplichthys haswelli","marin"],["Pectorale","🐟","Scorpaena scrofa","marin"],["Pelican Brown","🐦","Pelecanus occidentalis","marin"],["Perche du Nil","🐟","Lates niloticus","marin"],["Pieuvre de Fond","🐙","Bathypolypus arcticus","marin"],["Pilchard","🐟","Sardina pilchardus","marin"],["Pingouin Papou","🐧","Pygoscelis papua","marin"],["Pingouin Pygmée","🐧","Eudyptula minor","marin"],["Pingouin Rockhopper","🐧","Eudyptes chrysocome","marin"],["Platax","🐟","Platax orbicularis","marin"],["Plie Commune","🐟","Pleuronectes platessa","marin"],["Poisson Archer","🐟","Toxotes jaculator","marin"],["Poisson Ballon","🐟","Diodon hystrix","marin"],["Poisson Coffre","🐟","Lactoria cornuta","marin"],["Poisson Diable","🐟","Inimicus didactylus","marin"],["Poisson Fantôme","🐟","Chilorhinus suensonii","marin"],["Poisson Mandarin","🐠","Synchiropus splendidus","marin"],["Poisson Pierre","🐟","Synanceia verrucosa","marin"],["Poisson Trompette","🐟","Aulostomus maculatus","marin"],["Poisson Zèbre","🐠","Pterois volitans","marin"],["Polychète","🪱","Nereis virens","marin"],["Pompilide","🦐","Gnathia maxillaris","marin"],["Portolan","🐟","Lampris guttatus","marin"],["Poulpe de Fond","🐙","Megaleledone setebos","marin"],["Poulpe Géant Antarctique","🐙","Megaleledone setebos","marin"],["Poulpe Olm","🐙","Octopus oliveri","marin"],["Raie Aigle","🐟","Myliobatis aquila","marin"],["Raie Torpille","🐟","Torpedo torpedo","marin"],["Raie Pastenague","🐟","Dasyatis pastinaca","marin"],["Rémora","🐟","Remora remora","marin"],["Requin Anguille","🦈","Chlamydoselachus anguineus","marin"],["Requin Citron","🦈","Negaprion brevirostris","marin"],["Requin Corail","🦈","Triaenodon obesus","marin"],["Requin du Groenland","🦈","Somniosus microcephalus","marin"],["Requin Épineux","🦈","Squalus acanthias","marin"],["Requin Gris","🦈","Carcharhinus amblyrhynchos","marin"],["Requin Longimane","🦈","Carcharhinus longimanus","marin"],["Requin Nourrice","🦈","Ginglymostoma cirratum","marin"],["Requin Pèlerin","🦈","Cetorhinus maximus","marin"],["Requin Taureau","🦈","Carcharias taurus","marin"],["Requin Zèbre","🦈","Stegostoma fasciatum","marin"],["Rouget Barbet","🐟","Mullus surmuletus","marin"],["Rouget Tacheté","🐟","Parapenaeus longirostris","marin"],["Roussette Petite","🦈","Scyliorhinus canicula","marin"],["Sabelle","🪱","Sabella pavonina","marin"],["Salpe","🪼","Thalia democratica","marin"],["Sargue","🐟","Diplodus sargus","marin"],["Saumon Chinook","🐟","Oncorhynchus tshawytscha","marin"],["Saumon Coho","🐟","Oncorhynchus kisutch","marin"],["Saumon Kéta","🐟","Oncorhynchus keta","marin"],["Saumon Rose","🐟","Oncorhynchus gorbuscha","marin"],["Saumon Sockeye","🐟","Oncorhynchus nerka","marin"],["Scombridé Bonitou","🐟","Auxis thazard","marin"],["Sèche Commune","🦑","Sepia officinalis","marin"],["Sèche Géante","🦑","Sepia apama","marin"],["Serran Commun","🐟","Serranus cabrilla","marin"],["Silure Glane","🐟","Silurus glanis","marin"],["Siphonophore Physalie","🪼","Physalia physalis","marin"],["Sirène de Mer","🐾","Dugong dugon","marin"],["Sole Commune","🐟","Solea solea","marin"],["Spirographe","🪱","Spirographis spallanzanii","marin"],["Sprat","🐟","Sprattus sprattus","marin"],["Stomie","🐟","Stomias boa","marin"],["Surgeonfish","🐠","Acanthurus lineatus","marin"],["Syngnathidé","🐟","Syngnathus acus","marin"],["Tang Chirurgien","🐠","Paracanthurus hepatus","marin"],["Tarpon","🐟","Megalops atlanticus","marin"],["Têtard de Mer","🐟","Raniceps raninus","marin"],["Thon Blanc","🐟","Thunnus alalunga","marin"],["Thon Jaune","🐟","Thunnus albacares","marin"],["Torpille","🐟","Torpedo marmorata","marin"],["Triggerfish","🐠","Balistoides conspicillum","marin"],["Triton Géant","🐚","Charonia tritonis","marin"],["Trompe d'Éléphant","🐟","Mormyrus kannume","marin"],["Turbot","🐟","Scophthalmus maximus","marin"],["Vieille Commune","🐟","Labrus mixtus","marin"],["Vieille de Mer","🐟","Labrus bergylta","marin"],["Viperfish","🐟","Chauliodus sloani","marin"],["Zona Vert","🐟","Symphurus nigrescens","marin"],["Zonure","🦎","Zonurus giganteus","marin"]
+];
+
+const CAT_INSECTES=[
+  ["Abeille Alkali","🐝","Nomia melanderi","insecte"],["Abeille Andrenide","🐝","Andrena fulva","insecte"],["Abeille Coucou","🐝","Nomada flava","insecte"],["Abeille Halicte","🐝","Halictus rubicundus","insecte"],["Abeille Mégachile","🐝","Megachile pluto","insecte"],["Abeille Osmie","🐝","Osmia bicornis","insecte"],["Abeille Xylophage","🐝","Xylocopa violacea","insecte"],["Acarien Araignée","🕷️","Tetranychus urticae","insecte"],["Acarien de Varroa","🕷️","Varroa destructor","insecte"],["Agrion de Vander","🪲","Coenagrion puella","insecte"],["Agrion Élégant","🪲","Ischnura elegans","insecte"],["Aleurode","🪲","Trialeurodes vaporariorum","insecte"],["Alticine","🪲","Psylliodes chrysocephala","insecte"],["Altise","🪲","Phyllotreta nemorum","insecte"],["Amblycorypha","🦗","Amblycorypha oblongifolia","insecte"],["Anax Napolitain","🪲","Anax parthenope","insecte"],["Anax Roi","🪲","Anax imperator","insecte"],["Aphrophore Spumeuse","🪲","Philaenus spumarius","insecte"],["Araignée Crabe","🕷️","Misumena vatia","insecte"],["Araignée d'Eau","🕷️","Argyroneta aquatica","insecte"],["Araignée des Jardins","🕷️","Araneus diadematus","insecte"],["Araignée Loup","🕷️","Lycosa tarentula","insecte"],["Araignée Noire de Veuve","🕷️","Latrodectus mactans","insecte"],["Araignée Sauteuse","🕷️","Salticus scenicus","insecte"],["Araignée Sociale","🕷️","Stegodyphus dumicola","insecte"],["Arion Vulgaire","🐌","Arion vulgaris","insecte"],["Asile Frelon","🦟","Asilus crabroniformis","insecte"],["Aspic","🐍","Vipera aspis","insecte"],["Attelabe","🪲","Attelabus nitens","insecte"],["Bostryche","🪲","Ips typographus","insecte"],["Bourdon des Champs","🐝","Bombus campestris","insecte"],["Bourdon des Pierres","🐝","Bombus lapidarius","insecte"],["Bourdon Forestier","🐝","Bombus sylvarum","insecte"],["Brème Vulgaire","🪲","Abramis brama","insecte"],["Bupreste","🪲","Buprestis rustica","insecte"],["Carabe Doré","🪲","Carabus auratus","insecte"],["Carabe Granulé","🪲","Carabus granulatus","insecte"],["Carabe Violet","🪲","Carabus violaceus","insecte"],["Cétoine Dorée","🪲","Cetonia aurata","insecte"],["Charançon du Blé","🪲","Sitophilus granarius","insecte"],["Charançon Vert","🪲","Phyllobius viridicollis","insecte"],["Chilopode","🐛","Lithobius forficatus","insecte"],["Chrysomèle du Peuplier","🪲","Chrysomela populi","insecte"],["Cicindèle Champêtre","🪲","Cicindela campestris","insecte"],["Cigale de l'Orme","🎶","Tibicina haematodes","insecte"],["Cimex Lectulaire","🪲","Cimex lectularius","insecte"],["Cloportes Communs","🦀","Oniscus asellus","insecte"],["Cloporte de Mer","🦀","Ligia oceanica","insecte"],["Coccinelle à Deux Points","🐞","Adalia bipunctata","insecte"],["Coccinelle Asiatique","🐞","Harmonia axyridis","insecte"],["Coléoptère Bombardier","🪲","Brachinus crepitans","insecte"],["Coléoptère Nageur","🪲","Gyrinus substriatus","insecte"],["Collembole","🪲","Orchesella cincta","insecte"],["Coprin Chevelu","🐾","Coprinus comatus","insecte"],["Corbeau Grand","🐦","Corvus corax","insecte"],["Cossus Gâte-Bois","🪲","Cossus cossus","insecte"],["Courtilière Commune","🦗","Gryllotalpa gryllotalpa","insecte"],["Criquets Bleus","🦗","Sphingonotus caerulans","insecte"],["Culex Pipiens","🦟","Culex pipiens","insecte"],["Curculionide","🪲","Curculio glandium","insecte"],["Cynips du Chêne","🪲","Biorhiza pallida","insecte"],["Dermaptera","🪲","Labia minor","insecte"],["Diopsidé","🦟","Diopsis macrophthalma","insecte"],["Diptère Dolichopode","🦟","Dolichopus ungulatus","insecte"],["Diptère Empide","🦟","Empis tesselata","insecte"],["Dolomède","🕷️","Dolomedes fimbriatus","insecte"],["Doryphore","🪲","Leptinotarsa decemlineata","insecte"],["Drosophile","🦟","Drosophila melanogaster","insecte"],["Dytique Bordé","🪲","Dytiscus marginalis","insecte"],["Épeire Diadème","🕷️","Araneus diadematus","insecte"],["Épeire Fasciée","🕷️","Argiope bruennichi","insecte"],["Éphémère Commune","🪲","Ephemera danica","insecte"],["Euphorbe Épineux","🐾","Euphorbia resinifera","insecte"],["Euristide","🦟","Eristalis tenax","insecte"],["Faucheux","🕷️","Phalangium opilio","insecte"],["Forficule","🪲","Forficula auricularia","insecte"],["Forficule des Côtes","🪲","Labia minor","insecte"],["Fourmi Argentine","🐜","Linepithema humile","insecte"],["Fourmi Électrique","🐜","Wasmannia auropunctata","insecte"],["Fourmi Géante du Queensland","🐜","Myrmecia brevinoda","insecte"],["Fourmi Jack Jumper","🐜","Myrmecia pilosula","insecte"],["Fourmi Moissonneuse","🐜","Messor barbarus","insecte"],["Fourmilière Haute","🐜","Formica polyctena","insecte"],["Friganelle","🪲","Phryganea grandis","insecte"],["Géotrupes Forestier","🪲","Anoplotrupes stercorosus","insecte"],["Goryte","🐝","Gorytes laticinctus","insecte"],["Grillon des Champs","🦗","Gryllus campestris","insecte"],["Grillon d'Italie","🦗","Oecanthus pellucens","insecte"],["Grillon Taupe","🦗","Gryllotalpa gryllotalpa","insecte"],["Gyrinus","🪲","Gyrinus natator","insecte"],["Harpale","🪲","Harpalus affinis","insecte"],["Helops","🪲","Helops caeruleus","insecte"],["Hémérobe","🪲","Hemerobius humulinus","insecte"],["Hémérobius","🪲","Hemerobius humuli","insecte"],["Hornet Américain","🐝","Vespa crabro","insecte"],["Hydrophile","🪲","Hydrophilus piceus","insecte"],["Hypercompe","🦋","Hypercompe scribonia","insecte"],["Ichneumon","🐝","Ichneumon suspiciosus","insecte"],["Isopode Terrestre","🦀","Porcellio scaber","insecte"],["Ivory Woodlouse","🦀","Armadillidium album","insecte"],["Lampyris Noctiluca","🪲","Lampyris noctiluca","insecte"],["Larves de Diptères","🦟","Calliphora vicina","insecte"],["Lépisme","🪲","Lepisma saccharina","insecte"],["Leste Verdoyant","🪲","Lestes viridis","insecte"],["Libellule Aurore","🪲","Brachythemis impartita","insecte"],["Libellule Écarlate","🪲","Crocothemis erythraea","insecte"],["Libellule Fauve","🪲","Libellula fulva","insecte"],["Libellule Orthetrum","🪲","Orthetrum cancellatum","insecte"],["Locusta Migratoria","🦗","Locusta migratoria","insecte"],["Lophyre du Pin","🪲","Gilpinia pallida","insecte"],["Lucane Cerf-Volant","🪲","Lucanus cervus","insecte"],["Luciole Italienne","🪲","Luciola italica","insecte"],["Macrocentre","🐝","Macrocentrus cingulum","insecte"],["Macroglossus","🦋","Macroglossum stellatarum","insecte"],["Mante de Gambie","🦗","Sphodromantis gastrica","insecte"],["Mante Orchidée","🦗","Hymenopus coronatus","insecte"],["Mante Violoniste","🦗","Gongylus gongyloides","insecte"],["Méga-Syrphe","🦟","Volucella zonaria","insecte"],["Mélassome","🪲","Melasoma aeneum","insecte"],["Méloé","🪲","Meloe proscarabaeus","insecte"],["Mille-Pattes Plat","🐛","Polydesmus angustus","insecte"],["Mordelle","🪲","Mordellistena acuticollis","insecte"],["Moule d'Eau Douce","🐚","Margaritifera margaritifera","insecte"],["Musique à Têtes","🦗","Decticus albifrons","insecte"],["Myriapode","🐛","Scolopendra cingulata","insecte"],["Népe Cendrée","🪲","Nepa cinerea","insecte"],["Noctuelle de la Livraison","🦋","Agrotis exclamationis","insecte"],["Noctuelle de l'Armoise","🦋","Cucullia artemisiae","insecte"],["Noctuelle Gamma","🦋","Autographa gamma","insecte"],["Notodonte","🦋","Notodonta dromedarius","insecte"],["Odonate Cordulégastre","🪲","Cordulegaster boltonii","insecte"],["Oniscus Asellus","🦀","Oniscus asellus","insecte"],["Opilion","🕷️","Mitopus morio","insecte"],["Oreille de Cochon","🪲","Polyphylla fullo","insecte"],["Otiorhynque","🪲","Otiorhynchus sulcatus","insecte"],["Papillon Adonis","🦋","Lysandra bellargus","insecte"],["Papillon Alexanor","🦋","Papilio alexanor","insecte"],["Papillon Aurore","🦋","Anthocharis cardamines","insecte"],["Papillon Azuré","🦋","Polyommatus icarus","insecte"],["Papillon Brun des Pelouses","🦋","Lasiommata megera","insecte"],["Papillon Cléopâtre","🦋","Gonepteryx cleopatra","insecte"],["Papillon Cuivré","🦋","Lycaena phlaeas","insecte"],["Papillon Damier de la Succise","🦋","Euphydryas aurinia","insecte"],["Papillon du Choux","🦋","Pieris brassicae","insecte"],["Papillon Échiquier","🦋","Melanargia galathea","insecte"],["Papillon Flamé","🦋","Spialia sertorius","insecte"],["Papillon Gazé","🦋","Aporia crataegi","insecte"],["Papillon Guêpier","🦋","Hemaris fuciformis","insecte"],["Papillon Hespérie","🦋","Hesperia comma","insecte"],["Papillon Isabelle","🦋","Graellsia isabellae","insecte"],["Papillon Morio","🦋","Nymphalis antiopa","insecte"],["Papillon Naïade aux Rubans","🦋","Neptis rivularis","insecte"],["Papillon Ocellé de la Canaris","🦋","Hipparchia bacchus","insecte"],["Papillon Petit Sylvain","🦋","Limenitis camilla","insecte"],["Papillon Procris","🦋","Coenonympha pamphilus","insecte"],["Papillon Queen Alexandra","🦋","Ornithoptera alexandrae","insecte"],["Papillon Reine du Mexique","🦋","Danaus gilippus","insecte"],["Papillon Sphinx Acherontia","🦋","Acherontia atropos","insecte"],["Papillon Sphinx de Celerio","🦋","Deilephila celerio","insecte"],["Papillon Sphynx du Liseron","🦋","Agrius convolvuli","insecte"],["Papillon Thécla de l'Orme","🦋","Satyrium w-album","insecte"],["Papillon Zygène","🦋","Zygaena filipendulae","insecte"],["Perce-Oreille des Jardins","🪲","Forficula auricularia","insecte"],["Perineux","🪲","Dorcadion fuliginator","insecte"],["Phasme de Stick","🌿","Phobaeticus chani","insecte"],["Phasme Épineux","🌿","Extatosoma tiaratum","insecte"],["Phasme Géant de Labuan","🌿","Dryocoelus australis","insecte"],["Phasme Indien","🌿","Carausius morosus","insecte"],["Philanthe Apivore","🐝","Philanthus triangulum","insecte"],["Phytophage","🪲","Chrysomela aenea","insecte"],["Pique-Prune","🪲","Osmoderma eremita","insecte"],["Pirale du Maïs","🦋","Ostrinia nubilalis","insecte"],["Platymeris","🪲","Platymeris biguttata","insecte"],["Podure","🪲","Podura aquatica","insecte"],["Poliste","🐝","Polistes dominula","insecte"],["Prione Tanneur","🪲","Prionus coriarius","insecte"],["Psoque","🪲","Psocoptera sp.","insecte"],["Pterostichus","🪲","Pterostichus madidus","insecte"],["Punaise des Bois","🪲","Pentatoma rufipes","insecte"],["Punaise Graphosome","🪲","Graphosoma italicum","insecte"],["Punaise Verte","🪲","Palomena prasina","insecte"],["Réduve Masqué","🪲","Reduvius personatus","insecte"],["Rhagium","🪲","Rhagium mordax","insecte"],["Rhinoceros Beetle","🪲","Oryctes nasicornis","insecte"],["Rosalia Alpina","🪲","Rosalia alpina","insecte"],["Saturnie du Prunier","🦋","Saturnia pavonia","insecte"],["Saturnia Pyri","🦋","Saturnia pyri","insecte"],["Scolopendre","🐛","Scolopendra morsitans","insecte"],["Scorpion Jaune","🦂","Leiurus quinquestriatus","insecte"],["Scorpion à Queue Épaisse","🦂","Androctonus australis","insecte"],["Scorpion du Désert","🦂","Androctonus crassicauda","insecte"],["Scorpion de Méditerranée","🦂","Buthus occitanus","insecte"],["Sphex","🐝","Sphex ichneumoneus","insecte"],["Staphylin Odorant","🪲","Ocypus olens","insecte"],["Stégobium","🪲","Stegobium paniceum","insecte"],["Tabanus","🦟","Tabanus bovinus","insecte"],["Taon des Bovins","🦟","Tabanus bovinus","insecte"],["Taupin","🪲","Agriotes lineatus","insecte"],["Tenthrède","🐝","Tenthredo mesomela","insecte"],["Termite Champignon","🐜","Macrotermes natalensis","insecte"],["Termite de Formose","🐜","Coptotermes formosanus","insecte"],["Termite des Bois","🐜","Kalotermes flavicollis","insecte"],["Termite du Désert","🐜","Gnathamitermes tubiformans","insecte"],["Thanatos","🪲","Thanatophilus sinuatus","insecte"],["Tipule","🦟","Tipula maxima","insecte"],["Tiulua","🦗","Poecilimon ornatus","insecte"],["Trichoptère","🪲","Limnephilus flavicornis","insecte"],["Trilobite","🦀","Trilobita sp.","insecte"],["Trioxys","🐝","Trioxys angelicae","insecte"],["Trombidion Velours","🕷️","Trombidium holosericeum","insecte"],["Typhaea","🪲","Typhaea stercorea","insecte"],["Uropyge","🕷️","Uropygi sp.","insecte"],["Vespertilion de Brandt","🦇","Myotis brandtii","insecte"],["Volucelle","🦟","Volucella pellucens","insecte"],["Xenos Pediculus","🪲","Xenos vesparum","insecte"],["Xylocope","🐝","Xylocopa valga","insecte"],["Zoraptère","🪲","Zorotypus hubbardi","insecte"]
+];
+
+// Build full animals array from base + generated
+function buildAnimalFromRaw(arr, idx){
+  const [nom, emoji, latin, cat] = arr;
+  const seed = idx * 7 + nom.charCodeAt(0);
+  const tailles = cat==="marin"?[0.1,30]:(cat==="insecte"?[0.003,0.6]:[0.3,5.5]);
+  const t = parseFloat((tailles[0] + seededRand(seed)*( tailles[1]-tailles[0])).toFixed(2));
+  const p = parseFloat((t * (20 + seededRand(seed+1)*200)).toFixed(1));
+  const f = Math.round(5 + seededRand(seed+2)*85);
+  const habitats = {terrestre:["Savane","Forêt tropicale","Désert","Montagne","Prairie","Toundra","Forêt boréale","Garrigue"],marin:["Récifs coralliens","Océan profond","Zone côtière","Mer ouverte","Estuaire","Mangrove"],insecte:["Forêt","Prairie","Jardin","Zone humide","Désert","Montagne","Champs cultivés"]};
+  const regimes = ["Herbivore","Carnivore","Omnivore","Insectivore","Filtreur","Détritivore","Nectarivore","Parasite"];
+  const statuts = ["Préoccupation mineure","Quasi menacé","Vulnérable","En danger","En danger critique","Non évalué"];
+  const habs = habitats[cat];
+  return {
+    n: nom, e: emoji, l: latin, c: cat, t, p, f,
+    img: getImg(cat, nom),
+    i: {
+      Habitat: habs[Math.floor(seededRand(seed+3)*habs.length)],
+      Longévité: `${Math.round(1+seededRand(seed+4)*50)} ans`,
+      Vitesse: `${Math.round(1+seededRand(seed+5)*100)} km/h`,
+      Régime: regimes[Math.floor(seededRand(seed+6)*regimes.length)],
+      Statut: statuts[Math.floor(seededRand(seed+7)*statuts.length)]
+    },
+    co: {
+      Force:[f,40],
+      Vitesse:[Math.round(1+seededRand(seed+5)*100),45],
+      Longévité:[Math.round(1+seededRand(seed+4)*50),79],
+      Taille:[t,1.75]
+    }
+  };
+}
+
+// Image pool by category
+const IMG_POOL = {
+  terrestre:[
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Lion_waiting_in_Namibia.jpg/480px-Lion_waiting_in_Namibia.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/3/37/African_Bush_Elephant.jpg/480px-African_Bush_Elephant.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Tiger_in_Ranthambhore.jpg/480px-Tiger_in_Ranthambhore.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/TheCheetah.jpg/480px-TheCheetah.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Kolm%C3%A5rden_Wolf.jpg/480px-Kolm%C3%A5rden_Wolf.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/Mountain_Gorilla_2.jpg/480px-Mountain_Gorilla_2.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/6/66/Polar_Bear_-_Alaska_%28cropped%29.jpg/480px-Polar_Bear_-_Alaska_%28cropped%29.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Giraffe_Mikumi_National_Park.jpg/480px-Giraffe_Mikumi_National_Park.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Grosser_Panda.JPG/480px-Grosser_Panda.JPG",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Koala_climbing_tree.jpg/480px-Koala_climbing_tree.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/Kangaroo_and_joey03.jpg/480px-Kangaroo_and_joey03.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Cougar_sitting.jpg/480px-Cougar_sitting.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/Lynx_lynx_poing.jpg/480px-Lynx_lynx_poing.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/White_Rhino.jpg/480px-White_Rhino.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/2010-kodiak-bear-1.jpg/480px-2010-kodiak-bear-1.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/015_Chimpanzee_at_Kibale_forest_National_Park_Photo_by_Giles_Laurent.jpg/480px-015_Chimpanzee_at_Kibale_forest_National_Park_Photo_by_Giles_Laurent.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Komodo_dragon_with_tongue.jpg/480px-Komodo_dragon_with_tongue.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/A_large_male_King_Cobra_%28Ophiophagus_hannah%29.jpg/480px-A_large_male_King_Cobra_%28Ophiophagus_hannah%29.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Ostrich_2_edit.jpg/480px-Ostrich_2_edit.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Falco_peregrinus_-_01.jpg/480px-Falco_peregrinus_-_01.jpg",
+  ],
+  marin:[
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/Anim1754_-_Flickr_-_NOAA_Photo_Library.jpg/480px-Anim1754_-_Flickr_-_NOAA_Photo_Library.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/White_shark.jpg/480px-White_shark.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/3/37/Killerwhales_jumping.jpg/480px-Killerwhales_jumping.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/Tursiops_truncatus_01.jpg/480px-Tursiops_truncatus_01.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Day_Octopus_Taken_-_Maldives.jpg/480px-Day_Octopus_Taken_-_Maldives.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/Mastigias_papua_-_aquarium.jpg/480px-Mastigias_papua_-_aquarium.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Whale_shark_Georgia_aquarium.jpg/480px-Whale_shark_Georgia_aquarium.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/Leatherback_sea_turtle_Tinglar_USVI_%285885075658%29.jpg/480px-Leatherback_sea_turtle_Tinglar_USVI_%285885075658%29.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Manta_birostris-Keller.jpg/480px-Manta_birostris-Keller.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/Tiger_shark.jpg/480px-Tiger_shark.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Belugaschool.jpg/480px-Belugaschool.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Odontodactylus_scyllarus.jpg/480px-Odontodactylus_scyllarus.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a3/Aptenodytes_forsteri_-Snow_Hill_Island%2C_Antarctica_-adults_and_juvenile-8.jpg/480px-Aptenodytes_forsteri_-Snow_Hill_Island%2C_Antarctica_-adults_and_juvenile-8.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Swordfish-SteveKubby.jpg/480px-Swordfish-SteveKubby.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Mola_Mola.jpg/480px-Mola_Mola.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/Clown_fish_in_Pacific_coral_reef.jpg/480px-Clown_fish_in_Pacific_coral_reef.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bb/Lobster_NSRCA.jpg/480px-Lobster_NSRCA.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d8/Coconut_crab.jpg/480px-Coconut_crab.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Humpback_Whale_underwater_shot.jpg/480px-Humpback_Whale_underwater_shot.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/Octopus2.jpg/480px-Octopus2.jpg",
+  ],
+  insecte:[
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/Monarch_Butterfly_Danaus_plexippus.jpg/480px-Monarch_Butterfly_Danaus_plexippus.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/Apis_mellifera_Western_honey_bee.jpg/480px-Apis_mellifera_Western_honey_bee.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Formicarius_Fire_Ant_01.jpg/480px-Formicarius_Fire_Ant_01.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/Dragonfly_-_Crocothemis_erythraea.jpg/480px-Dragonfly_-_Crocothemis_erythraea.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/Dynastes_hercules_-_1.jpg/480px-Dynastes_hercules_-_1.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Mantis_religiosa_01.jpg/480px-Mantis_religiosa_01.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Coccinella_septempunctata.jpg/480px-Coccinella_septempunctata.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/Aglais_io_on_Cirsium_arvense.jpg/480px-Aglais_io_on_Cirsium_arvense.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Pandinus_imperator.jpg/480px-Pandinus_imperator.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Theraphosa_blondi_MHNT.jpg/480px-Theraphosa_blondi_MHNT.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Vespa_mandarinia_japonica1.jpg/480px-Vespa_mandarinia_japonica1.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Bombus_terrestris_Bumblebee.jpg/480px-Bombus_terrestris_Bumblebee.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Morpho_peleides_limpida.JPG/480px-Morpho_peleides_limpida.JPG",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Paraponera_clavata.jpg/480px-Paraponera_clavata.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Cicada_Tibicen_resonans.jpg/480px-Cicada_Tibicen_resonans.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Anopheles_gambiae.jpg/480px-Anopheles_gambiae.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/e/eb/Acherontia_atropos.jpg/480px-Acherontia_atropos.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Schistocerca_gregaria.jpg/480px-Schistocerca_gregaria.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Goliathus_goliatus_MHNT.jpg/480px-Goliathus_goliatus_MHNT.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/Aglais_io_on_Cirsium_arvense.jpg/480px-Aglais_io_on_Cirsium_arvense.jpg",
+  ]
+};
+
+function getImg(cat, nom){
+  const pool = IMG_POOL[cat];
+  let hash = 0;
+  for(let c of nom) hash = (hash*31 + c.charCodeAt(0)) % pool.length;
+  return pool[Math.abs(hash)];
+}
+
+// Build master animals list
+const ALL_ANIMALS = [...BASE_ANIMALS];
+CAT_TERRESTRES.forEach((arr,i) => ALL_ANIMALS.push(buildAnimalFromRaw(arr,i+1000)));
+CAT_MARINS.forEach((arr,i) => ALL_ANIMALS.push(buildAnimalFromRaw(arr,i+5000)));
+CAT_INSECTES.forEach((arr,i) => ALL_ANIMALS.push(buildAnimalFromRaw(arr,i+8000)));
+
+// Deduplicate by name
+const seen = new Set();
+const A = ALL_ANIMALS.filter(a => {
+  if(seen.has(a.n)) return false;
+  seen.add(a.n);
+  return true;
+});
+
+document.getElementById('totalCount').textContent = A.length.toLocaleString('fr');
+document.getElementById('groupCount').textContent = '35+';
+
+// ═══════════════════════════════════════════════════════
+// NAVIGATION
+// ═══════════════════════════════════════════════════════
+function goto(id){ document.getElementById(id).scrollIntoView({behavior:'smooth'}); }
+function openAOTD(){ openAM(AOTD); }
+
+// AOTD
+const AOTD = A[new Date().getDate() % A.length];
+document.getElementById('aotdImg').src = AOTD.img;
+document.getElementById('aotdName').textContent = AOTD.n;
+document.getElementById('aotdFact').textContent = `${AOTD.e} ${AOTD.c.charAt(0).toUpperCase()+AOTD.c.slice(1)} · ${AOTD.t>=1?AOTD.t+'m':Math.round(AOTD.t*100)+'cm'} · Puissance ${AOTD.f}/100`;
+document.getElementById('aotdCard').onclick = ()=>openAM(AOTD);
+
+// Streak
+const sk=parseInt(localStorage.getItem('avs')||'1'),lv=localStorage.getItem('avl'),td=new Date().toDateString();
+if(lv!==td){const ns=lv===new Date(Date.now()-86400000).toDateString()?sk+1:1;localStorage.setItem('avs',ns);localStorage.setItem('avl',td);document.getElementById('streakNum').textContent=ns+' jour'+(ns>1?'s':'');}
+else{document.getElementById('streakNum').textContent=sk+' jour'+(sk>1?'s':'');}
+
+// ═══════════════════════════════════════════════════════
+// GRID — with pagination
+// ═══════════════════════════════════════════════════════
+const PAGE_SIZE = 60;
+let cc='all', cs='nom', sq='', pg=0;
+
+function filtered(){
+  let arr=[...A];
+  if(cc!=='all') arr=arr.filter(x=>x.c===cc);
+  if(sq) arr=arr.filter(x=>x.n.toLowerCase().includes(sq.toLowerCase())||x.l.toLowerCase().includes(sq.toLowerCase()));
+  if(cs==='nom') arr.sort((a,b)=>a.n.localeCompare(b.n,'fr'));
+  else if(cs==='puissance') arr.sort((a,b)=>b.f-a.f);
+  else if(cs==='taille') arr.sort((a,b)=>b.t-a.t);
+  else if(cs==='poids') arr.sort((a,b)=>b.p-a.p);
+  return arr;
+}
+
+function renderGrid(){
+  const g=document.getElementById('grid');
+  const arr=filtered();
+  const total=arr.length, pages=Math.ceil(total/PAGE_SIZE);
+  if(pg>=pages) pg=0;
+  const slice=arr.slice(pg*PAGE_SIZE,(pg+1)*PAGE_SIZE);
+
+  document.getElementById('pgInfo').textContent = `${pg*PAGE_SIZE+1}–${Math.min((pg+1)*PAGE_SIZE,total)} / ${total.toLocaleString('fr')} animaux`;
+
+  // Page numbers
+  const pgNums = document.getElementById('pgNums');
+  pgNums.innerHTML='';
+  const start=Math.max(0,pg-2), end=Math.min(pages-1,pg+2);
+  for(let i=start;i<=end;i++){
+    const b=document.createElement('button');
+    b.className='pg-btn'+(i===pg?' active':'');
+    b.textContent=i+1;
+    const ii=i;
+    b.onclick=()=>{pg=ii;renderGrid();window.scrollTo({top:document.getElementById('enc').offsetTop-80,behavior:'smooth'});};
+    pgNums.appendChild(b);
+  }
+
+  ['pgPrev','pgPrev2'].forEach(id=>{const el=document.getElementById(id);if(el)el.disabled=pg===0;});
+  ['pgNext','pgNext2'].forEach(id=>{const el=document.getElementById(id);if(el)el.disabled=pg>=pages-1;});
+
+  g.innerHTML=slice.map((a,i)=>`
+    <div class="acard" data-cat="${a.c}" onclick="openAM(A[${A.indexOf(a)}])">
+      <div class="ci">
+        <img src="${a.img}" alt="${a.n}" loading="lazy" onerror="this.style.opacity=0">
+        <span style="z-index:1;position:relative">${a.e}</span>
+        <div class="cdot"></div>
+      </div>
+      <div class="cb">
+        <h3>${a.n}</h3>
+        <div class="lat">${a.l}</div>
+        <div style="display:flex;gap:5px;flex-wrap:wrap">
+          <span class="mpill">${a.t>=1?a.t+'m':Math.round(a.t*100)+'cm'}</span>
+          <span class="mpill">⚡${a.f}/100</span>
+        </div>
+      </div>
+    </div>`).join('');
+}
+
+function changePage(d){
+  const arr=filtered(), pages=Math.ceil(arr.length/PAGE_SIZE);
+  pg=Math.max(0,Math.min(pages-1,pg+d));
+  renderGrid();
+  window.scrollTo({top:document.getElementById('enc').offsetTop-80,behavior:'smooth'});
+}
+
+document.querySelectorAll('.tab').forEach(t=>t.addEventListener('click',()=>{
+  document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
+  t.classList.add('active'); cc=t.dataset.cat; pg=0; renderGrid();
+}));
+document.getElementById('sortSel').addEventListener('change',e=>{cs=e.target.value;pg=0;renderGrid();});
+document.getElementById('searchIn').addEventListener('input',e=>{sq=e.target.value;pg=0;renderGrid();});
+renderGrid();
+
+// ═══════════════════════════════════════════════════════
+// ANIMAL MODAL
+// ═══════════════════════════════════════════════════════
+let curA=null,aiL={};
+function openAM(a){
+  if(!a) return;
+  curA=a; aiL={};
+  const img=document.getElementById('mImg'),fb=document.getElementById('mFb');
+  img.style.display='block'; fb.textContent='';
+  img.onerror=()=>{img.style.display='none';fb.textContent=a.e;};
+  img.src=a.img;
+  document.getElementById('mEmoji').textContent=a.e;
+  document.getElementById('mName').textContent=a.n;
+  document.getElementById('mLat').textContent=a.l;
+  document.getElementById('iGrid').innerHTML=Object.entries(a.i).map(([k,v])=>
+    `<div class="ii"><label>${k}</label><span>${v}</span></div>`).join('');
+  ['aiD','aiA','aiC'].forEach(id=>document.getElementById(id).innerHTML=
+    '<div class="load"><div class="da"><span></span><span></span><span></span></div>&nbsp;Génération…</div>');
+  renderBars(a);
+  document.querySelectorAll('.mtab').forEach((t,i)=>t.classList.toggle('active',i===0));
+  document.querySelectorAll('.mc').forEach((c,i)=>c.classList.toggle('active',i===0));
+  document.getElementById('aModal').classList.add('open');
+  loadAI('d',a);
+}
+function renderBars(a){
+  const mx={Force:100,Vitesse:120,Longévité:100,Taille:35};
+  document.getElementById('cBars').innerHTML=Object.entries(a.co).map(([k,v])=>{
+    const hp=Math.min(100,(v[1]/mx[k])*100),ap=Math.min(100,(v[0]/mx[k])*100);
+    return `<div><div style="text-align:center;font-size:.58rem;color:var(--muted);font-family:'Space Mono',monospace;margin-bottom:3px">${k}</div>
+      <div class="crow"><span class="cl">👤 ${v[1]}</span>
+      <div class="bt"><div class="bh" style="width:${hp/2}%"></div><div class="ba" style="width:${ap/2}%"></div></div>
+      <span class="cl r">🐾 ${v[0]}</span></div></div>`;
+  }).join('');
+}
+function swTab(el,tab){
+  document.querySelectorAll('.mtab').forEach(t=>t.classList.remove('active'));el.classList.add('active');
+  document.querySelectorAll('.mc').forEach(c=>c.classList.remove('active'));document.getElementById('tab-'+tab).classList.add('active');
+  const m={anec:'a',hum:'c'};if(m[tab]&&!aiL[m[tab]]&&curA)loadAI(m[tab],curA);
+}
+async function loadAI(t,a){
+  if(aiL[t])return;aiL[t]=true;
+  const pr={
+    d:`En 3-4 phrases vivantes en français, décris l'animal "${a.n}" (${a.l}). Mets en avant ses caractéristiques extraordinaires. Sois enthousiaste. Réponds directement sans introduction.`,
+    a:`Raconte UNE anecdote drôle et surprenante sur "${a.n}" en 2-3 phrases françaises. Elle doit être vraie et amusante. Commence directement par l'anecdote.`,
+    c:`En 3 phrases en français, compare de façon ludique "${a.n}" à un humain moyen. Utilise des comparaisons concrètes et chiffrées. Sois surprenant.`
+  };
+  const tgt={d:'aiD',a:'aiA',c:'aiC'};
+  const el=document.getElementById(tgt[t]);
+  try{
+    const r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,messages:[{role:'user',content:pr[t]}]})});
+    const d=await r.json();
+    el.innerHTML=d.content?.[0]?.text||'Contenu indisponible.';
+  }catch(e){el.innerHTML=`<span style="color:var(--muted)">${a.e} Connexion requise pour le contenu IA.</span>`;}
+}
+function closeOv(id){document.getElementById(id).classList.remove('open');}
+document.querySelectorAll('.ov').forEach(o=>o.addEventListener('click',e=>{if(e.target===o)o.classList.remove('open');}));
+
+// ═══════════════════════════════════════════════════════
+// SPECIES TREE
+// ═══════════════════════════════════════════════════════
+function openTree(){
+  document.getElementById('treeOv').classList.add('open');
+  buildTree();
+}
+
+let treeState = {level0: null, level1: null, level2: null};
+
+function buildTree(){
+  const cols = document.getElementById('treeCols');
+  cols.innerHTML = '';
+  // Level 0 — kingdom
+  const col0 = makeCol('Règne Animal', TREE.children, 0);
+  cols.appendChild(col0);
+}
+
+function makeCol(title, items, level){
+  const col = document.createElement('div');
+  col.className = 'tree-col';
+  col.innerHTML = `<div class="tree-col-title">${title}</div>`;
+  items.forEach(item => {
+    const node = document.createElement('div');
+    node.className = 'tnode';
+    // count animals
+    let count = '—';
+    if(item.key && FAMILIES[item.key]) count = FAMILIES[item.key].animals.length + ' espèces';
+    else if(item.key) count = '···';
+    else if(item.children) count = item.children.length + ' groupes';
+    node.innerHTML = `<div class="tnode-icon">${item.icon||'🌿'}</div><div class="tnode-name">${item.name}</div><div class="tnode-count">${count}</div>`;
+    node.onclick = () => selectNode(item, level, node, col);
+    col.appendChild(node);
+  });
+  return col;
+}
+
+function selectNode(item, level, nodeEl, col){
+  // Highlight
+  col.querySelectorAll('.tnode').forEach(n=>n.classList.remove('sel'));
+  nodeEl.classList.add('sel');
+  treeState['level'+level] = item;
+
+  // Remove deeper cols
+  const cols = document.getElementById('treeCols');
+  while(cols.children.length > level + 1) cols.removeChild(cols.lastChild);
+
+  if(item.children && item.children.length){
+    const nextCol = makeCol(item.name, item.children, level+1);
+    cols.appendChild(nextCol);
+    document.getElementById('animalListWrap').innerHTML = `<div style="display:flex;align-items:center;justify-content:center;height:200px;color:var(--muted);flex-direction:column;gap:12px"><span style="font-size:3rem">👉</span><p style="font-size:.9rem">Sélectionnez un groupe plus précis</p></div>`;
+  } else {
+    // Show animals
+    showTreeAnimals(item);
+  }
+}
+
+function showTreeAnimals(item){
+  const wrap = document.getElementById('animalListWrap');
+  let animals = [];
+
+  if(item.key && FAMILIES[item.key]){
+    animals = FAMILIES[item.key].animals;
+  } else {
+    // Filter from ALL_ANIMALS by cat
+    const cat = item.cat;
+    if(cat) animals = A.filter(a=>a.c===cat).slice(0,80);
+    else animals = A.slice(0,40);
+  }
+
+  if(!animals.length){
+    // Generate from name match
+    const name = item.name.toLowerCase();
+    animals = A.filter(a=>a.n.toLowerCase().includes(name.split(' ')[0])||a.l.toLowerCase().includes(name.split(' ')[0])).slice(0,40);
+    if(!animals.length) animals = A.filter(a=>a.c===(item.cat||'terrestre')).slice(0,40);
+  }
+
+  wrap.innerHTML = `<div style="margin-bottom:12px;font-family:'Space Mono',monospace;font-size:.7rem;color:var(--muted)">${animals.length} espèces dans cette famille</div><div class="animal-list-grid">${
+    animals.map(a=>`<div class="al-card" onclick="closeOv('treeOv');setTimeout(()=>openAM(A[${A.indexOf(a)}]),200)">
+      <span class="emoji">${a.e}</span>
+      <div class="name">${a.n}</div>
+      <div class="latin-s">${a.l}</div>
+    </div>`).join('')
+  }</div>`;
+}
+
+function filterTree(q){
+  if(!q){buildTree();return;}
+  const matches = A.filter(a=>a.n.toLowerCase().includes(q.toLowerCase())||a.l.toLowerCase().includes(q.toLowerCase())).slice(0,80);
+  const wrap = document.getElementById('animalListWrap');
+  const cols = document.getElementById('treeCols');
+  cols.innerHTML = '';
+  wrap.innerHTML = `<div style="margin-bottom:12px;font-family:'Space Mono',monospace;font-size:.7rem;color:var(--muted)">${matches.length} résultats</div><div class="animal-list-grid">${
+    matches.map(a=>`<div class="al-card" onclick="closeOv('treeOv');setTimeout(()=>openAM(A[${A.indexOf(a)}]),200)">
+      <span class="emoji">${a.e}</span>
+      <div class="name">${a.n}</div>
+      <div class="latin-s">${a.l}</div>
+    </div>`).join('')
+  }</div>`;
+}
+
+// ═══════════════════════════════════════════════════════
+// QUIZ
+// ═══════════════════════════════════════════════════════
+const QQ=[
+  {q:"🦁 Quel animal court le plus vite ?",opts:["Lion","Guépard","Autruche","Antilope"],ans:1},
+  {q:"🐋 Quelle est la plus grande baleine ?",opts:["Orque","Baleine à Bosse","Baleine Bleue","Cachalot"],ans:2},
+  {q:"🐜 Combien de fois son poids la fourmi soulève-t-elle ?",opts:["10x","30x","50x","100x"],ans:2},
+  {q:"🦋 Distance de migration du papillon monarque ?",opts:["500 km","1 500 km","4 500 km","9 000 km"],ans:2},
+  {q:"🐬 Comment les dauphins dorment-ils ?",opts:["Ils ne dorment pas","Un hémisphère à la fois","8h d'affilée","En flottant"],ans:1},
+  {q:"🦈 Combien de rangées de dents a le requin blanc ?",opts:["1","3","5 à 7","20"],ans:2},
+  {q:"🐘 Comment les éléphants communiquent à longue distance ?",opts:["Olfactif","Cris aigus","Infrasons dans le sol","Télépathie"],ans:2},
+  {q:"🦒 Combien mesure la langue d'une girafe ?",opts:["10 cm","25 cm","45 cm","70 cm"],ans:2},
+  {q:"🐙 Combien de cerveaux distribués a une pieuvre ?",opts:["1","3","9","12"],ans:2},
+  {q:"🦂 Quel arachnide peut survivre sans eau le plus longtemps ?",opts:["Fourmi","Scorpion","Termite","Araignée"],ans:1},
+  {q:"🐝 Combien de fois une abeille bat-elle des ailes par seconde ?",opts:["50","100","200","500"],ans:3},
+  {q:"🦏 La corne du rhinocéros est composée de …",opts:["Os","Ivoire","Kératine","Calcaire"],ans:2},
+  {q:"🐢 Quelle est la longévité record de la tortue géante ?",opts:["80 ans","120 ans","188 ans","250 ans"],ans:2},
+  {q:"🦭 Quel animal retient le mieux son souffle ?",opts:["Dauphin","Baleine de Cuvier","Pingouin","Phoque"],ans:1},
+  {q:"🦋 Quel papillon est le plus grand du monde ?",opts:["Monarque","Queen Alexandra","Atlas","Morpho bleu"],ans:1},
+  {q:"🦟 Quel insecte est le plus mortel pour l'humain ?",opts:["Frelon","Scorpion","Moustique","Abeille"],ans:2},
+  {q:"🦍 De combien le gorille est-il plus fort qu'un humain ?",opts:["3x","5x","10x","20x"],ans:2},
+  {q:"🐋 Quelle est la durée du chant de la baleine à bosse ?",opts:["5 min","30 min","plusieurs heures","plusieurs jours"],ans:2},
+  {q:"🐝 Combien de km une abeille parcourt-elle pour 1kg de miel ?",opts:["10 000 km","50 000 km","150 000 km","500 000 km"],ans:2},
+  {q:"🦈 Quel est le requin le plus lent ?",opts:["Requin Baleine","Requin Nourrice","Requin du Groenland","Ange de mer"],ans:2},
+];
+let qi=0,qs=0;
+function openQuiz(){qi=0;qs=0;document.getElementById('qSc').textContent=0;document.getElementById('qTot').textContent=0;document.getElementById('qNext').textContent='Suivant →';document.getElementById('qNext').onclick=nextQ;renderQQ();document.getElementById('qzOv').classList.add('open');}
+function renderQQ(){const q=QQ[qi];document.getElementById('qQ').innerHTML=q.q;document.getElementById('qNext').style.display='none';document.getElementById('qOpts').innerHTML=q.opts.map((o,i)=>`<div class="qo" onclick="ansQ(this,${i},${q.ans})">${o}</div>`).join('');}
+function ansQ(el,ch,co){if(el.classList.contains('answered'))return;document.querySelectorAll('#qOpts .qo').forEach(o=>o.classList.add('answered'));if(ch===co){el.classList.add('correct');qs++;}else{el.classList.add('wrong');document.querySelectorAll('#qOpts .qo')[co].classList.add('correct');}document.getElementById('qSc').textContent=qs;document.getElementById('qTot').textContent=qi+1;document.getElementById('qNext').style.display='block';}
+function nextQ(){qi++;if(qi>=QQ.length){document.getElementById('qQ').innerHTML=`🎉 Score : <strong style="color:var(--green)">${qs}/${QQ.length}</strong>`;document.getElementById('qOpts').innerHTML='';document.getElementById('qNext').textContent='🔄 Rejouer';document.getElementById('qNext').onclick=openQuiz;document.getElementById('qNext').style.display='block';return;}renderQQ();}
+
+// ═══════════════════════════════════════════════════════
+// ANAGRAM
+// ═══════════════════════════════════════════════════════
+function shuf(s){let a=s.split('');for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}const r=a.join('');return r===s?shuf(s):r;}
+let curAn='';
+function newAn(){curAn=A[Math.floor(Math.random()*A.length)].n;document.getElementById('anW').textContent=shuf(curAn.toUpperCase());document.getElementById('anIn').value='';document.getElementById('anR').textContent='';document.getElementById('anIn').focus();}
+function openAnagram(){newAn();document.getElementById('anOv').classList.add('open');}
+function chkAn(){const v=document.getElementById('anIn').value.trim();if(v.toLowerCase()===curAn.toLowerCase()){document.getElementById('anR').innerHTML=`<span style="color:var(--green)">✅ Bravo ! C'était "${curAn}" !</span>`;setTimeout(newAn,2000);}else{document.getElementById('anR').innerHTML=`<span style="color:rgba(255,80,80,.8)">❌ Essaie encore !</span>`;}}
+
+// ═══════════════════════════════════════════════════════
+// SILHOUETTE
+// ═══════════════════════════════════════════════════════
+let curSil=null;
+function newSil(){curSil=A[Math.floor(Math.random()*A.length)];const img=document.getElementById('silI');img.src=curSil.img;img.classList.remove('rev');document.getElementById('silR').textContent='';const opts=[curSil];while(opts.length<4){const r=A[Math.floor(Math.random()*A.length)];if(!opts.find(o=>o.n===r.n))opts.push(r);}opts.sort(()=>Math.random()-0.5);document.getElementById('silOpts').innerHTML=opts.map(o=>`<div class="qo" onclick="gueSil(this,'${o.n}')">${o.e} ${o.n}</div>`).join('');}
+function gueSil(el,ch){if(el.classList.contains('answered'))return;document.querySelectorAll('#silOpts .qo').forEach(o=>o.classList.add('answered'));document.getElementById('silI').classList.add('rev');if(ch===curSil.n){el.classList.add('correct');document.getElementById('silR').innerHTML=`<span style="color:var(--green)">✅ ${curSil.n} !</span>`;}else{el.classList.add('wrong');document.querySelectorAll('#silOpts .qo').forEach(o=>{if(o.textContent.includes(curSil.n))o.classList.add('correct');});document.getElementById('silR').innerHTML=`<span style="color:rgba(255,80,80,.8)">❌ C'était ${curSil.n}</span>`;}}
+function openSil(){newSil();document.getElementById('silOv').classList.add('open');}
+
+// ═══════════════════════════════════════════════════════
+// COMPARAISON
+// ═══════════════════════════════════════════════════════
+const CQ=[
+  {q:"Qui court le plus vite sur courte distance ?",a:"🦁 Guépard (112 km/h)",h:"🧑 Usain Bolt (44 km/h)",ans:"animal"},
+  {q:"Qui a la meilleure vision nocturne ?",a:"🦉 Hibou Grand-duc",h:"🧑 Humain moyen",ans:"animal"},
+  {q:"Qui retient son souffle le plus longtemps ?",a:"🐳 Baleine de Cuvier (3h37)",h:"🧑 Record humain (24 min)",ans:"animal"},
+  {q:"Qui est le plus fort relativement à sa taille ?",a:"🐜 Fourmi (50× son poids)",h:"🏋️ Haltérophile (3× son poids)",ans:"animal"},
+  {q:"Qui vit le plus longtemps ?",a:"🐢 Tortue géante (200 ans)",h:"🧑 Jeanne Calment (122 ans)",ans:"animal"},
+  {q:"Qui nage le plus vite ?",a:"🐟 Voilier (110 km/h)",h:"🏊 Michael Phelps (10 km/h)",ans:"animal"},
+  {q:"Qui a la mémoire la plus longue ?",a:"🐘 Éléphant (50+ ans)",h:"🧑 Champion de mémorisation",ans:"animal"},
+  {q:"Qui saute le plus haut relativement à sa taille ?",a:"🦗 Puce (200× sa taille)",h:"🤸 Champion (0.5× sa taille)",ans:"animal"},
+  {q:"Qui entend les sons les plus aigus ?",a:"🦇 Chauve-souris (110 000 Hz)",h:"🧑 Humain (20 000 Hz)",ans:"animal"},
+  {q:"Qui produit le son le plus fort ?",a:"🐋 Baleine bleue (188 dB)",h:"🎸 Concert de rock (120 dB)",ans:"animal"},
+];
+let ci=0,csc=0;
+function openComp(){ci=0;csc=0;document.getElementById('cpSc').textContent=0;renderCP();document.getElementById('cpOv').classList.add('open');}
+function renderCP(){const q=CQ[ci%CQ.length];document.getElementById('cpQ').textContent=q.q;document.getElementById('cpNext').style.display='none';document.getElementById('cpR').textContent='';document.getElementById('cpOpts').innerHTML=`<div class="qo" onclick="ansCP(this,'animal')">${q.a}</div><div class="qo" onclick="ansCP(this,'human')">${q.h}</div>`;}
+function ansCP(el,ch){if(el.classList.contains('answered'))return;const co=CQ[ci%CQ.length].ans;document.querySelectorAll('#cpOpts .qo').forEach(o=>o.classList.add('answered'));if(ch===co){el.classList.add('correct');csc++;document.getElementById('cpR').innerHTML=`<span style="color:var(--green)">✅ Correct !</span>`;}else{el.classList.add('wrong');document.querySelectorAll('#cpOpts .qo').forEach(o=>{if(o!==el)o.classList.add('correct');});document.getElementById('cpR').innerHTML=`<span style="color:rgba(255,80,80,.8)">❌ Raté !</span>`;}document.getElementById('cpSc').textContent=csc;document.getElementById('cpNext').style.display='block';}
+function nextCp(){ci++;if(ci>=CQ.length){document.getElementById('cpQ').textContent=`Score final : ${csc}/${CQ.length} 🏆`;document.getElementById('cpOpts').innerHTML='';document.getElementById('cpNext').textContent='🔄 Rejouer';document.getElementById('cpNext').onclick=openComp;document.getElementById('cpNext').style.display='block';return;}renderCP();}
+
+// ═══════════════════════════════════════════════════════
+// SCROLL
+// ═══════════════════════════════════════════════════════
+function observeReveal(){const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});},{threshold:.08});document.querySelectorAll('.reveal:not(.visible)').forEach(el=>obs.observe(el));}
+observeReveal();
+window.addEventListener('scroll',()=>document.getElementById('scrtop').classList.toggle('vis',scrollY>400));
+</script>
+</body>
+</html>
